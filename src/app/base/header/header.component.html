@@ -177,7 +177,10 @@
     </div>
   </a>
 
-  <div class="user-link-container flex-center">
+  <div
+    class="user-link-container flex-center"
+    (click)="isOnRegistration = !isOnRegistration"
+  >
     <a class="user-icon" *ngIf="">ra</a>
     <a class="user-icon">
       <app-user></app-user>

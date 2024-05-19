@@ -9,6 +9,8 @@ import { MessageComponent } from './icons/message/message.component';
 import { ClockComponent } from './icons/clock/clock.component';
 import { BellComponent } from './icons/bell/bell.component';
 import { LogoutComponent } from './icons/logout/logout.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,14 @@ import { LogoutComponent } from './icons/logout/logout.component';
     ClockComponent,
     BellComponent,
     LogoutComponent,
+    ErrorMessageComponent,
   ],
-  imports: [CommonModule, SharedRoutingModule],
+  imports: [
+    CommonModule,
+    SharedRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   exports: [
     LikeComponent,
     CommonModule,
@@ -28,6 +36,9 @@ import { LogoutComponent } from './icons/logout/logout.component';
     ClockComponent,
     BellComponent,
     LogoutComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    ErrorMessageComponent,
   ],
 })
 export class SharedModule {}

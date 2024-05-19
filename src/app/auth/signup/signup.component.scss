@@ -1,0 +1,20 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixin.scss" as *;
+
+:host {
+  display: block;
+  background-color: #fbf5ed;
+  width: 100vw;
+  max-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  overflow-y: hidden;
+}
+
+.signup-container {
+  @include flex-center;
+  width: 100vw;
+  height: 100vh;
+}
