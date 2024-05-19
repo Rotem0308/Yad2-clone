@@ -1,0 +1,127 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixin.scss" as *;
+:host(.footer) {
+  display: block;
+  min-height: 5rem;
+  background-color: $blackish;
+}
+.footer-wrapper {
+  @include flex-center;
+  flex-direction: column;
+  padding: 3rem 2rem 0.5rem 2rem;
+  gap: 1.5rem;
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    @media (max-width: $mobile) {
+      flex-direction: column;
+      width: 100%;
+    }
+    .nav-item-container {
+      color: white;
+      flex-direction: column;
+      .title {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        :nth-child(2) {
+          display: none;
+        }
+        p {
+          transition: all 0.3s ease;
+          margin-block: 0.5rem;
+        }
+      }
+      @media (max-width: $mobile) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid gray;
+        padding-block: 0.7rem;
+        &:last-child {
+          border-bottom: 1px solid gray;
+        }
+        .title {
+          :nth-child(2) {
+            display: block;
+          }
+        }
+        &.active {
+          .dropdown-menu {
+            display: flex;
+            min-height: 100px;
+          }
+
+          .title p:nth-child(2) {
+            transform: rotate(-90deg);
+          }
+        }
+
+        .dropdown-menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          justify-content: end;
+          position: relative;
+          top: 100%;
+          min-height: 0;
+          padding: 1rem 0;
+        }
+      }
+
+      ul {
+        list-style: none;
+        font-size: 0.8rem;
+        display: grid;
+        grid-template-rows: repeat(var(--grid-row, 10), auto);
+        grid-auto-flow: column;
+        color: gainsboro;
+        gap: 0.4rem;
+        column-gap: 1rem;
+        li {
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+  p {
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .companies-icons {
+    @include flex-center;
+    gap: 1rem;
+    .icon {
+      @include flex-center;
+      width: 40px;
+      height: 40px;
+      background-color: black;
+      border-radius: 50%;
+    }
+  }
+  .footer-text {
+    @include flex-center;
+    text-align: center;
+    color: gray;
+    font-size: 0.7rem;
+  }
+  hr {
+    @include flex-center;
+    width: 400px;
+    border: 0.1px solid gray;
+  }
+  .navigation-links {
+    color: gray;
+    font-size: 0.9rem;
+    .link {
+      padding-left: 2rem;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

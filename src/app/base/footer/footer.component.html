@@ -1,0 +1,292 @@
+<div class="footer-wrapper">
+  <ul class="navbar-container">
+    <div
+      class="nav-item-container"
+      (click)="isMenu1Open = !isMenu1Open"
+      [ngClass]="{ active: isMenu1Open }"
+    >
+      <div class="title">
+        <p>נדל"ן</p>
+        <p>&gt;</p>
+      </div>
+
+      <ul class="dropdown-menu">
+        <li class="dropdown-item"><a>למכירה</a></li>
+        <li class="dropdown-item"><a>להשכרה</a></li>
+        <li class="dropdown-item"><a>כונס נכסים</a></li>
+        <li class="dropdown-item"><a>דירות חדשות</a></li>
+        <li class="dropdown-item"><a>Yzer - בונים החלטות חכמות</a></li>
+        <li class="dropdown-item"><a>Yadata - הערכת שווי נכס</a></li>
+      </ul>
+    </div>
+
+    <div
+      class="nav-item-container"
+      [ngStyle]="{ '--grid-row': 5 }"
+      (click)="isMenu2Open = !isMenu2Open"
+      [ngClass]="{ active: isMenu2Open }"
+    >
+      <div class="title">
+        <p>רכב</p>
+        <p>&gt;</p>
+      </div>
+
+      <ul class="dropdown-menu">
+        <li class="dropdown-item"><a>פרטיים ומסחריים</a></li>
+        <li class="dropdown-item"><a>אופנועים</a></li>
+        <li class="dropdown-item"><a>קטנועים</a></li>
+        <li class="dropdown-item"><a>מיוחדים</a></li>
+        <li class="dropdown-item"><a>אביזרים</a></li>
+        <li class="dropdown-item"><a>משאיות</a></li>
+        <li class="dropdown-item"><a>כלי שייט</a></li>
+        <li class="dropdown-item"><a> מחירון רכב</a></li>
+        <li class="dropdown-item"><a> מימון רכב</a></li>
+      </ul>
+    </div>
+
+    <div
+      class="nav-item-container"
+      (click)="isMenu3Open = !isMenu3Open"
+      [ngClass]="{ active: isMenu3Open }"
+    >
+      <div class="title">
+        <p class="text">יד שנייה</p>
+        <p>&gt;</p>
+      </div>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item">
+          <a>כל המוצרים</a>
+        </li>
+        <li class="dropdown-item"><a>ריהוט</a></li>
+        <li class="dropdown-item"><a>סלולרי</a></li>
+        <li class="dropdown-item"><a>מוצרי חשמל</a></li>
+        <li class="dropdown-item"><a>אופניים</a></li>
+      </ul>
+    </div>
+
+    <div
+      class="nav-item-container"
+      (click)="isMenu4Open = !isMenu4Open"
+      [ngClass]="{ active: isMenu4Open }"
+    >
+      <div class="title">
+        <p>דרושים</p>
+        <p>&gt;</p>
+      </div>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item"><a>כל הקטגוריות</a></li>
+        <li class="dropdown-item"><a>חברות מובילות</a></li>
+        <li class="dropdown-item"><a> דרושים הייטק</a></li>
+        <li class="dropdown-item"><a>קורות חיים</a></li>
+        <li class="dropdown-item"><a>מגזין קריירה</a></li>
+        <li class="dropdown-item"><a>סוכן חכם</a></li>
+      </ul>
+    </div>
+    <div
+      class="nav-item-container"
+      (click)="isMenu5Open = !isMenu5Open"
+      [ngClass]="{ active: isMenu5Open }"
+    >
+      <div class="title">
+        <p>עוד באתר</p>
+        <p>&gt;</p>
+      </div>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item"><a>חיות מחמד</a></li>
+        <li class="dropdown-item"><a>בעלי מקצוע</a></li>
+        <li class="dropdown-item"><a>מגזין יד 2</a></li>
+      </ul>
+    </div>
+  </ul>
+
+  <div class="companies-icons">
+    <div class="icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="27"
+        height="27"
+        viewBox="0,0,256,256"
+      >
+        <g
+          fill="#ffffff"
+          fill-rule="nonzero"
+          stroke="none"
+          stroke-width="1"
+          stroke-linecap="butt"
+          stroke-linejoin="miter"
+          stroke-miterlimit="10"
+          stroke-dasharray=""
+          stroke-dashoffset="0"
+          font-family="none"
+          font-weight="none"
+          font-size="none"
+          text-anchor="none"
+          style="mix-blend-mode: normal"
+        >
+          <g transform="scale(8.53333,8.53333)">
+            <path
+              d="M25.565,9.785c-0.123,0.077 -3.051,1.702 -3.051,5.305c0.138,4.109 3.695,5.55 3.756,5.55c-0.061,0.077 -0.537,1.963 -1.947,3.94c-1.119,1.703 -2.361,3.42 -4.247,3.42c-1.794,0 -2.438,-1.135 -4.508,-1.135c-2.223,0 -2.852,1.135 -4.554,1.135c-1.886,0 -3.22,-1.809 -4.4,-3.496c-1.533,-2.208 -2.836,-5.673 -2.882,-9c-0.031,-1.763 0.307,-3.496 1.165,-4.968c1.211,-2.055 3.373,-3.45 5.734,-3.496c1.809,-0.061 3.419,1.242 4.523,1.242c1.058,0 3.036,-1.242 5.274,-1.242c0.966,0.001 3.542,0.292 5.137,2.745zM15.001,6.688c-0.322,-1.61 0.567,-3.22 1.395,-4.247c1.058,-1.242 2.729,-2.085 4.17,-2.085c0.092,1.61 -0.491,3.189 -1.533,4.339c-0.935,1.242 -2.545,2.177 -4.032,1.993z"
+            ></path>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="27"
+        height="27"
+        viewBox="0 0 48 48"
+      >
+        <linearGradient
+          id="AraffhWwwEqZfgFEBZFoqa_L1ws9zn2uD01_gr1"
+          x1="18.102"
+          x2="25.297"
+          y1="3.244"
+          y2="34.74"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stop-color="#35ab4a"></stop>
+          <stop offset=".297" stop-color="#31a145"></stop>
+          <stop offset=".798" stop-color="#288739"></stop>
+          <stop offset="1" stop-color="#237a33"></stop>
+        </linearGradient>
+        <path
+          fill="url(#AraffhWwwEqZfgFEBZFoqa_L1ws9zn2uD01_gr1)"
+          d="M13.488,4.012C10.794,2.508,7.605,3.778,6.45,6.323L24.126,24l9.014-9.014L13.488,4.012z"
+        ></path>
+        <linearGradient
+          id="AraffhWwwEqZfgFEBZFoqb_L1ws9zn2uD01_gr2"
+          x1="19.158"
+          x2="21.194"
+          y1="23.862"
+          y2="66.931"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stop-color="#f14e5d"></stop>
+          <stop offset=".499" stop-color="#ea3d4f"></stop>
+          <stop offset="1" stop-color="#e12138"></stop>
+        </linearGradient>
+        <path
+          fill="url(#AraffhWwwEqZfgFEBZFoqb_L1ws9zn2uD01_gr2)"
+          d="M33.14,33.014L24.126,24L6.45,41.677 c1.156,2.546,4.345,3.815,7.038,2.312L33.14,33.014z"
+        ></path>
+        <linearGradient
+          id="AraffhWwwEqZfgFEBZFoqc_L1ws9zn2uD01_gr3"
+          x1="32.943"
+          x2="36.541"
+          y1="14.899"
+          y2="43.612"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stop-color="#ffd844"></stop>
+          <stop offset=".519" stop-color="#ffc63f"></stop>
+          <stop offset="1" stop-color="#ffb03a"></stop>
+        </linearGradient>
+        <path
+          fill="url(#AraffhWwwEqZfgFEBZFoqc_L1ws9zn2uD01_gr3)"
+          d="M41.419,28.393 c1.72-0.96,2.58-2.676,2.581-4.393c-0.001-1.717-0.861-3.434-2.581-4.393l-8.279-4.621L24.126,24l9.014,9.014L41.419,28.393z"
+        ></path>
+        <linearGradient
+          id="AraffhWwwEqZfgFEBZFoqd_L1ws9zn2uD01_gr4"
+          x1="13.853"
+          x2="15.572"
+          y1="5.901"
+          y2="42.811"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset=".003" stop-color="#0090e6"></stop>
+          <stop offset="1" stop-color="#0065a0"></stop>
+        </linearGradient>
+        <path
+          fill="url(#AraffhWwwEqZfgFEBZFoqd_L1ws9zn2uD01_gr4)"
+          d="M6.45,6.323C6.168,6.948,6,7.652,6,8.408 v31.179c0,0.761,0.164,1.463,0.45,2.09l17.674-17.68L6.45,6.323z"
+        ></path>
+      </svg>
+    </div>
+    <div class="icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="27"
+        height="27"
+        viewBox="0,0,256,256"
+      >
+        <g
+          fill="#ffffff"
+          fill-rule="nonzero"
+          stroke="none"
+          stroke-width="1"
+          stroke-linecap="butt"
+          stroke-linejoin="miter"
+          stroke-miterlimit="10"
+          stroke-dasharray=""
+          stroke-dashoffset="0"
+          font-family="none"
+          font-weight="none"
+          font-size="none"
+          text-anchor="none"
+          style="mix-blend-mode: normal"
+        >
+          <g transform="scale(10.66667,10.66667)">
+            <path
+              d="M17.525,9h-3.525v-2c0,-1.032 0.084,-1.682 1.563,-1.682h1.868v-3.18c-0.909,-0.094 -1.823,-0.14 -2.738,-0.138c-2.713,0 -4.693,1.657 -4.693,4.699v2.301h-3v4l3,-0.001v9.001h4v-9.003l3.066,-0.001z"
+            ></path>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="27"
+        height="27"
+        viewBox="0,0,256,256"
+      >
+        <g
+          fill="#ffffff"
+          fill-rule="nonzero"
+          stroke="none"
+          stroke-width="1"
+          stroke-linecap="butt"
+          stroke-linejoin="miter"
+          stroke-miterlimit="10"
+          stroke-dasharray=""
+          stroke-dashoffset="0"
+          font-family="none"
+          font-weight="none"
+          font-size="none"
+          text-anchor="none"
+          style="mix-blend-mode: normal"
+        >
+          <g transform="scale(5.12,5.12)">
+            <path
+              d="M44.89844,14.5c-0.39844,-2.19922 -2.29687,-3.80078 -4.5,-4.30078c-3.29687,-0.69922 -9.39844,-1.19922 -16,-1.19922c-6.59766,0 -12.79687,0.5 -16.09766,1.19922c-2.19922,0.5 -4.10156,2 -4.5,4.30078c-0.40234,2.5 -0.80078,6 -0.80078,10.5c0,4.5 0.39844,8 0.89844,10.5c0.40234,2.19922 2.30078,3.80078 4.5,4.30078c3.5,0.69922 9.5,1.19922 16.10156,1.19922c6.60156,0 12.60156,-0.5 16.10156,-1.19922c2.19922,-0.5 4.09766,-2 4.5,-4.30078c0.39844,-2.5 0.89844,-6.10156 1,-10.5c-0.20312,-4.5 -0.70312,-8 -1.20312,-10.5zM19,32v-14l12.19922,7z"
+            ></path>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <p class="footer-text">
+    כל הזכויות שמורות לחברת קורל תל מפעילות לוח יד2 - לוח מודעות: דרושים, דירות
+    להשכרה, בתים למכירה, בתים להשכרה, העברת בתים, הובלות, לימודים, קניות, בעלי
+    מקצוע, אצבע, תיירות ועוד. אין לעשות שימוש בכל התכנים המופיעים בלוח יד2.
+  </p>
+  <hr />
+  <div class="navigation-links">
+    <a class="link">תקנון</a>
+    <a class="link">הצהרת נגישות</a><a class="link">מדיניות פרטיות</a>
+    <a class="link">מפת האתר</a><a class="link">צור קשר</a>
+    <a class="link">קריירה ביד 2</a>
+  </div>
+  <div style="color: white">גרסה:prod</div>
+</div>

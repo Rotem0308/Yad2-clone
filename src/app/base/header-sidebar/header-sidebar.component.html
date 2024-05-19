@@ -1,0 +1,185 @@
+<div
+  class="sidebar-wrapper"
+  [ngStyle]="{
+    width: !isSidebarOpen ? '0px' : '315px',
+
+  }"
+>
+  <button class="exit-btn" (click)="onClick()">x</button>
+
+  <div class="header-btn-container">
+    <div class="user-link-container flex-center">
+      <a class="user-icon" *ngIf="">ra</a>
+      <a class="user-icon">
+        <app-user class="icon"></app-user>
+      </a>
+      <p class="user-text">התחברות</p>
+    </div>
+
+    <div class="add-ad-container flex-center">
+      <span class="plus-icon">+</span>
+      <p class="add-ad-text">פרסום מודעה</p>
+    </div>
+  </div>
+
+  <ul class="options-container">
+    <li class="option-item"><app-message></app-message><span>צ'אט</span></li>
+    <li class="option-item"><app-like></app-like><span>מודעות שאהבתי</span></li>
+    <li class="option-item">
+      <app-clock></app-clock><span>חיפושים אחרונים</span>
+    </li>
+    <li class="option-item"><app-bell></app-bell><span>התראות</span></li>
+  </ul>
+
+  <ul class="navbar-container" (mouseenter)="isMenu1Open = !isMenu1Open">
+    <div class="nav-item-container">
+      <li class="navbar-link"><a>נדל"ן</a></li>
+      <ul class="dropdown-menu" [ngClass]="{ active: isMenu1Open }">
+        <li class="dropdown-header" (click)="isMenu1Open = !isMenu1Open">
+          <a>נדל"ן</a>
+        </li>
+        <li class="dropdown-item"><a>דירות למכירה</a></li>
+        <li class="dropdown-item"><a>דירות להשכרה</a></li>
+        <li class="dropdown-item"><a>נדל"ן מסחרי</a></li>
+        <li class="dropdown-item"><a>עסקים למכירה</a></li>
+        <li class="dropdown-item"><a> יד 1 דירות חדשות</a></li>
+        <li class="dropdown-item"><a>כונס נכסים</a></li>
+        <li class="dropdown-item"><a>הערכת שווי נכס</a></li>
+        <li class="dropdown-item"><a>משרדי תיווך בישראל</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-item-container" (mouseenter)="isMenu2Open = !isMenu2Open">
+      <li class="navbar-link"><a>רכב</a></li>
+      <ul class="dropdown-menu" [ngClass]="{ active: isMenu2Open }">
+        <li class="dropdown-header" (click)="isMenu2Open = !isMenu2Open">
+          <a>רכב</a>
+        </li>
+        <li class="dropdown-item"><a>פרטיים ומסחריים</a></li>
+        <li class="dropdown-item"><a>אופנועים</a></li>
+        <li class="dropdown-item"><a>קטנועים</a></li>
+        <li class="dropdown-item"><a>מיוחדים</a></li>
+        <li class="dropdown-item"><a>אביזרים</a></li>
+        <li class="dropdown-item"><a>משאיות</a></li>
+        <li class="dropdown-item"><a>כלי שייט</a></li>
+        <li class="dropdown-item"><a> קטלוג רכבים</a></li>
+        <li class="dropdown-item"><a> מחירון רכב</a></li>
+        <li class="dropdown-item"><a> מימון רכב</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-item-container" (mouseenter)="isMenu3Open = !isMenu3Open">
+      <li class="navbar-link"><a>יד שנייה</a></li>
+      <ul class="dropdown-menu" [ngClass]="{ active: isMenu3Open }">
+        <li class="dropdown-header" (click)="isMenu3Open = !isMenu3Open">
+          <a>יד שנייה</a>
+        </li>
+        <li class="dropdown-item"><a>כל המוצרים</a></li>
+        <li class="dropdown-item"><a>מוצרי חשמל</a></li>
+        <li class="dropdown-item"><a>ריהוט</a></li>
+        <li class="dropdown-item"><a>ספורט</a></li>
+        <li class="dropdown-item"><a>סלולרי</a></li>
+        <li class="dropdown-item"><a>לתינוק ולילד</a></li>
+        <li class="dropdown-item"><a>הכל בחינם!</a></li>
+        <li class="dropdown-item"><a>קונסולות משחק</a></li>
+        <li class="dropdown-item"><a>מחשבים וציוד נלווה</a></li>
+        <li class="dropdown-item"><a>לגינה</a></li>
+        <li class="dropdown-item"><a>אופנה וטיפול</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-item-container" (mouseenter)="isMenu4Open = !isMenu4Open">
+      <li class="navbar-link" [ngClass]="{ active: isMenu4Open }">
+        <a>דרושים IL</a>
+      </li>
+      <ul class="dropdown-menu">
+        <li class="dropdown-header" (click)="isMenu4Open = !isMenu4Open">
+          <a>דרושים IL</a>
+        </li>
+        <li class="dropdown-item"><a> חיפוש עבודה</a></li>
+        <li class="dropdown-item"><a>פרסום משרות</a></li>
+        <li class="dropdown-item"><a>כתיבת קורות חיים</a></li>
+        <li class="dropdown-item"><a>אודות החברות</a></li>
+        <li class="dropdown-item"><a> דרושים הייטק</a></li>
+        <li class="dropdown-item"><a> דרושים סטודנטים</a></li>
+        <li class="dropdown-item"><a> מגזין הקריירה</a></li>
+        <li class="dropdown-item"><a> כספים</a></li>
+        <li class="dropdown-item"><a> מכירות</a></li>
+        <li class="dropdown-item"><a> שירות לקוחות</a></li>
+        <li class="dropdown-item"><a>אדמיניסטרציה</a></li>
+        <li class="dropdown-item"><a>מהנדסים</a></li>
+        <li class="dropdown-item"><a>תחבורה</a></li>
+        <li class="dropdown-item"><a>מסעדנות/תיירות</a></li>
+        <li class="dropdown-item"><a>אבטחה</a></li>
+        <li class="dropdown-item"><a>בריאות</a></li>
+        <li class="dropdown-item"><a>בעלי מקצוע</a></li>
+        <li class="dropdown-item"><a>הדרכה/הוראה</a></li>
+        <li class="dropdown-item"><a>שיווק</a></li>
+        <li class="dropdown-item"><a>לתחומים נוספים</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-item-container" (mouseenter)="isMenu5Open = !isMenu5Open">
+      <li class="navbar-link" [ngClass]="{ active: isMenu5Open }">
+        <a>עסקים למכירה</a>
+      </li>
+      <ul class="dropdown-menu">
+        <li class="dropdown-header" (click)="isMenu5Open = !isMenu5Open">
+          <a>דרושים למכירה</a>
+        </li>
+        <li class="dropdown-item"><a>בתי קפה ומסעדנות</a></li>
+        <li class="dropdown-item"><a>זכיינות</a></li>
+        <li class="dropdown-item"><a>קווי חלוקה</a></li>
+        <li class="dropdown-item"><a>הזדמנויות עסקיות</a></li>
+        <li class="dropdown-item"><a> מינימרקטים וסופרמרקטים</a></li>
+        <li class="dropdown-item"><a>קיוסקים ופיצוציות</a></li>
+        <li class="dropdown-item"><a>לכל העסקים</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-item-container" (mouseenter)="isMenu6Open = !isMenu6Open">
+      <li class="navbar-link" [ngClass]="{ active: isMenu6Open }">
+        <a>חיות מחמד</a>
+      </li>
+      <ul class="dropdown-menu" (click)="isMenu6Open = !isMenu6Open">
+        <li class="dropdown-header"><a>חיות מחמד</a></li>
+        <li class="dropdown-item"><a>כלבים</a></li>
+        <li class="dropdown-item"><a>חתולים</a></li>
+        <li class="dropdown-item"><a>תוכים ובעלי כנף</a></li>
+        <li class="dropdown-item"><a>דגים</a></li>
+        <li class="dropdown-item"><a>זוחלים</a></li>
+        <li class="dropdown-item"><a>מכרסמים</a></li>
+        <li class="dropdown-item"><a>סוסים</a></li>
+        <li class="dropdown-item"><a>תרנגולים</a></li>
+        <li class="dropdown-item"><a>חיות משק</a></li>
+        <li class="dropdown-item"><a>חמוסים</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-item-container" (mouseenter)="isMenu7Open = !isMenu7Open">
+      <li class="navbar-link" [ngClass]="{ active: isMenu7Open }">
+        <a>בעלי מקצוע</a>
+      </li>
+      <ul class="dropdown-menu">
+        <li class="dropdown-header" (click)="isMenu7Open = !isMenu7Open">
+          <a>בעלי מקצוע</a>
+        </li>
+        <li class="dropdown-item"><a>מכוני בדיקה ורישוי לרכב</a></li>
+        <li class="dropdown-item"><a> רחיצת רכב</a></li>
+        <li class="dropdown-item"><a>חומרי בניין</a></li>
+        <li class="dropdown-item"><a> אינסטלטורים</a></li>
+        <li class="dropdown-item"><a>חשמלאים</a></li>
+        <li class="dropdown-item"><a>שמאי מקרקעין</a></li>
+        <li class="dropdown-item"><a>שיפוצים</a></li>
+        <li class="dropdown-item"><a>הובלות</a></li>
+        <li class="dropdown-item"><a>רהיטים</a></li>
+        <li class="dropdown-item"><a>חברות ניקיון ואחזקה</a></li>
+        <li class="dropdown-item"><a>לכל בעלי המקצוע</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-item-container">
+      <li class="navbar-link"><a> מגזין יד 2</a></li>
+    </div>
+  </ul>
+</div>
