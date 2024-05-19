@@ -12,14 +12,15 @@ import { passwordRGX } from '../../../utilities/const';
   styleUrl: './signup-form.component.scss',
 })
 export class SignupFormComponent {
+  canViewPass: boolean = false;
+  canViewConfirmPass: boolean = false;
+
   signupForm!: FormGroup;
   @Output() signupData: EventEmitter<any> = new EventEmitter<any>();
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      firstName: this.fb.control('', [Validators.required]),
-      lastName: this.fb.control('', [Validators.required]),
       email: this.fb.control('', [Validators.required, Validators.email]),
       password: this.fb.control('', [
         Validators.required,

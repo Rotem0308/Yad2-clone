@@ -1,0 +1,92 @@
+<form
+  class="signup-form"
+  [formGroup]="signupForm"
+  (ngSubmit)="handleSubmitSignupForm()"
+>
+  <div id="profile">
+    <img src="assets/profile-plus.svg" alt="profile image" />
+  </div>
+  <div class="form-control">
+    <p class="title">היי נעים להכיר</p>
+  </div>
+
+  <div class="form-control">
+    <label for="firstName">שם פרטי</label>
+    <input
+      formControlName="firstName"
+      type="text"
+      placeholder="הקלדת שם פרטי"
+      id="firstName"
+    />
+    <app-error-message
+      *ngIf="
+        this.signupForm.get('firstName')?.invalid &&
+        this.signupForm.get('firstName')?.touched
+      "
+      error="Must enter a first name"
+    ></app-error-message>
+  </div>
+
+  <div class="form-control">
+    <label for="lastName">שם משפחה</label>
+    <input
+      formControlName="lastName"
+      type="text"
+      placeholder="הקלדת שם משפחה"
+      id="lastName"
+    />
+    <app-error-message
+      *ngIf="
+        this.signupForm.get('lastName')?.invalid &&
+        this.signupForm.get('lastName')?.touched
+      "
+      error="Must enter a last name"
+    ></app-error-message>
+  </div>
+
+  <div class="form-control">
+    <label for="phone">טלפון</label>
+    <input
+      formControlName="phone"
+      type="text"
+      placeholder="מספר נייד"
+      id="lastName"
+    />
+    <app-error-message
+      *ngIf="
+        this.signupForm.get('phone')?.invalid &&
+        this.signupForm.get('phone')?.touched
+      "
+      error="Must enter a last name"
+    ></app-error-message>
+  </div>
+
+  <div class="form-control">
+    <div class="checkbox">
+      <input formControlName="terms" type="checkbox" id="terms" />
+      <label for="terms"
+        >קראתי ואישרתי את <span id="orange-text">תקנון</span> האתר*</label
+      >
+    </div>
+
+    <app-error-message
+      *ngIf="
+        this.signupForm.get('terms')?.invalid &&
+        this.signupForm.get('terms')?.touched
+      "
+      error="you Must agree to the terms"
+    ></app-error-message>
+  </div>
+
+  <div class="form-control">
+    <div class="checkbox">
+      <input type="checkbox" id="extra-info" />
+      <label for="extra-info">
+        אני מאשר/ת קבלת פניות ותוכן שיווקי ומקצועי מיד2 וגורמים שונים באמצעות
+        מייל, מסרון, טלפון, ושירותי דיוור ישיר, כמפורט במדיניות הפרטיות
+      </label>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="this.signupForm.invalid">סיום הרשמה</button>
+</form>
