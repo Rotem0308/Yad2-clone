@@ -1,12 +1,12 @@
 <div
-  [class]="isOpen ? 'sidebar' : ''"
-  [ngClass]="{ 'display-none': isOpen }"
+  [class]="isSideBarOpen ? 'sidebar' : ''"
+  [ngClass]="{ 'display-none': isSideBarOpen }"
   (click)="closeSideBar()"
 ></div>
 
 <app-header-sidebar
   [ngClass]="{ 'sidebar-container': true }"
-  [isSidebarOpen]="isOpen"
+  [isSidebarOpen]="isSideBarOpen"
   (clickEvent)="closeSideBar()"
 ></app-header-sidebar>
 
@@ -177,9 +177,13 @@
     </div>
   </a>
 
-  <div class="user-link-container flex-center">
-    <a class="user-icon" *ngIf="">ra</a>
-    <a class="user-icon">
+  <div class="user-link-container flex-center" routerLink="auth/login">
+    <a
+      [ngClass]="{ 'user-icon': true, 'logged-user-icon': true }"
+      *ngIf="isLoggedIn"
+      >{{ user.firstName.charAt(0) }}</a
+    >
+    <a class="user-icon" *ngIf="!isLoggedIn">
       <app-user></app-user>
     </a>
     <p class="user-text">התחברות</p>

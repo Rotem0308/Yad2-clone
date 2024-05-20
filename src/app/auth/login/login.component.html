@@ -3,7 +3,7 @@
     <img src="assets/logo.svg" alt="" />
   </div>
   <div class="login-form-container">
-    <app-login-form class="form-side"></app-login-form>
+    <app-login-form class="form-side" (loginData)="HandleLoginSubmit($event)"></app-login-form>
 
     <div class="text-side">
       <p class="headline">לקנות מהר, למכור מהר. ויש לנו אחלה כלים לזה.</p>

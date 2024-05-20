@@ -38,10 +38,11 @@ export class SignupFormComponent {
   confirmPasswordValidator(control: AbstractControl) {
     const parent = control.parent;
     if (parent == null) return null;
-    //to make sure parent is only of type either formGroup
-    const password: string = parent.getRawValue()['password'];
-    const confirmPassword: string = parent.getRawValue()['confirmPassword'];
-
+    // to make sure parent is only of type either formGroup
+    // const password: string = parent.getRawValue()['password'];
+    // const confirmPassword: string = parent.getRawValue()['confirmPassword'];
+    const password: string = parent.get('password')?.value;
+    const confirmPassword: string = parent.get('confirmPassword')?.value;
     if (password == '' || confirmPassword == '') return null;
     console.log(password, confirmPassword);
     return password !== confirmPassword
@@ -89,4 +90,6 @@ export class SignupFormComponent {
     console.log('signup working');
     this.signupData.emit(this.signupForm.value);
   }
+
+
 }

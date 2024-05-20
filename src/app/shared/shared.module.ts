@@ -11,6 +11,7 @@ import { BellComponent } from './icons/bell/bell.component';
 import { LogoutComponent } from './icons/logout/logout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorMessageComponent } from './error-message/error-message.component';
+import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
     BellComponent,
     LogoutComponent,
     ErrorMessageComponent,
+    PhoneFormatPipe,
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
     ReactiveFormsModule,
     FormsModule,
     ErrorMessageComponent,
+    PhoneFormatPipe,
   ],
 })
 export class SharedModule {}

@@ -173,6 +173,13 @@
       @include flex-center;
       padding-top: 5px;
     }
+    .logged-user-icon {
+      background-color: $light-orange;
+      border: 1px solid $orange;
+      color: $orange;
+      padding-top: 0px;
+      font-weight: 300;
+    }
     .user-text {
       font-weight: 400;
       font-size: 0.85rem;

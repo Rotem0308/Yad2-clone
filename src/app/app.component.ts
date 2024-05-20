@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './core/services/user.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'Yad2-clone-angular';
+export class AppComponent implements OnInit {
+  constructor(private userService: UserService) {}
+  ngOnInit(): void {
+    this.userService.checkSessionStorage();
+  }
 
-  onRegistration:boolean = false;
+  onRegistration: boolean = false;
 }

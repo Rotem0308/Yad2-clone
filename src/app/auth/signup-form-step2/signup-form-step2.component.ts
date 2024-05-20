@@ -21,8 +21,8 @@ export class SignupFormStep2Component {
     this.signupForm = this.fb.group({
       firstName: this.fb.control('', [Validators.required]),
       lastName: this.fb.control('', [Validators.required]),
-      phone: this.fb.control('', [Validators.required]),
-      terms: this.fb.control(false, [Validators.requiredTrue]),
+      phoneNumber: this.fb.control('', [Validators.required]),
+      hasReadTerms: this.fb.control(false, [Validators.requiredTrue]),
     });
   }
 

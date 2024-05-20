@@ -45,34 +45,37 @@
   </div>
 
   <div class="form-control">
-    <label for="phone">טלפון</label>
+    <label for="phoneNumber">טלפון</label>
     <input
-      formControlName="phone"
+      formControlName="phoneNumber"
       type="text"
       placeholder="מספר נייד"
-      id="lastName"
+      id="phoneNumber"
+      maxlength="10"
+      minlength="10"
+      pattern="[0-9]+"
     />
     <app-error-message
       *ngIf="
-        this.signupForm.get('phone')?.invalid &&
-        this.signupForm.get('phone')?.touched
+        this.signupForm.get('phoneNumber')?.invalid &&
+        this.signupForm.get('phoneNumber')?.touched
       "
-      error="Must enter a last name"
+      error="Must enter a valid Phone Number"
     ></app-error-message>
   </div>
 
   <div class="form-control">
     <div class="checkbox">
-      <input formControlName="terms" type="checkbox" id="terms" />
-      <label for="terms"
+      <input formControlName="hasReadTerms" type="checkbox" id="hasReadTerms" />
+      <label for="hasReadTerms"
         >קראתי ואישרתי את <span id="orange-text">תקנון</span> האתר*</label
       >
     </div>
 
     <app-error-message
       *ngIf="
-        this.signupForm.get('terms')?.invalid &&
-        this.signupForm.get('terms')?.touched
+        this.signupForm.get('hasReadTerms')?.invalid &&
+        this.signupForm.get('hasReadTerms')?.touched
       "
       error="you Must agree to the terms"
     ></app-error-message>

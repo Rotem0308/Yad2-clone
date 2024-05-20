@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderSidebarComponent } from './header-sidebar/header-sidebar.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,9 @@ import { MainPageComponent } from './main-page/main-page.component';
     FooterComponent,
     HeaderSidebarComponent,
     MainPageComponent,
+    BannerComponent,
   ],
   imports: [BaseRoutingModule, SharedModule],
-  exports: [HeaderComponent, MainComponent, FooterComponent],
+  exports: [HeaderComponent, MainComponent, FooterComponent, BannerComponent],
 })
 export class BaseModule {}

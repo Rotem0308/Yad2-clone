@@ -8,13 +8,21 @@
   <button class="exit-btn" (click)="onClick()">x</button>
 
   <div class="header-btn-container">
-    <div class="user-link-container flex-center">
-      <a class="user-icon" *ngIf="">ra</a>
-      <a class="user-icon">
-        <app-user class="icon"></app-user>
+    <div class="user-link-container flex-center" routerLink="auth/login">
+      <a
+        [ngClass]="{ 'user-icon': true, 'logged-user-icon': true }"
+        *ngIf="isLoggedIn"
+        >{{ user.firstName.charAt(0) }}</a
+      >
+      <a class="user-icon" *ngIf="!isLoggedIn">
+        <app-user></app-user>
       </a>
-      <p class="user-text">התחברות</p>
+      <p class="user-text" *ngIf="!isLoggedIn">התחברות</p>
+      <a routerLink="" *ngIf="isLoggedIn" class="user-text">אזור אישי</a>
     </div>
+    <button class="logout-link" (click)="handleLogout()" *ngIf="isLoggedIn">
+      התנתקות
+    </button>
 
     <div class="add-ad-container flex-center">
       <span class="plus-icon">+</span>
