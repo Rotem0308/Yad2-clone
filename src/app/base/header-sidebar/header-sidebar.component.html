@@ -24,7 +24,10 @@
       התנתקות
     </button>
 
-    <div class="add-ad-container flex-center">
+    <div
+      class="add-ad-container flex-center"
+      [routerLink]="user ? 'advertisement' : 'auth/login'"
+    >
       <span class="plus-icon">+</span>
       <p class="add-ad-text">פרסום מודעה</p>
     </div>

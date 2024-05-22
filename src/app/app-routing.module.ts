@@ -8,6 +8,13 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
+  {
+    path: 'advertisement',
+    loadChildren: () =>
+      import('./advertisement/advertisement.module').then(
+        (m) => m.AdvertisementModule
+      ),
+  },
 ];
 
 @NgModule({

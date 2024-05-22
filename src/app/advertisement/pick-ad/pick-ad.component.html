@@ -1,0 +1,76 @@
+<div class="pick-ad-container">
+  <div class="pick-ad-header">
+    <div class="logo-container">
+      <img src="/assets/logo.svg" alt="yad2 logo" />
+      <p class="new-ad-text">פרסום מודעה חדשה</p>
+    </div>
+    <div class="nav-links-container">
+      <div class="user-link box">
+        <app-user [color]="'rgb(255, 113, 0)'"></app-user>
+        <p class="user-firstname">
+          {{ user ? user.firstName : "שלום אורח/ת" }}
+        </p>
+        <div class="user-options" *ngIf="user">
+          <p class="different-user-login link">התחברות כמשתמש אחר</p>
+          <p class="logout link">התנתקות</p>
+        </div>
+      </div>
+      <div class="contact box">
+        <p id="contact-text">צור קשר</p>
+        <div class="question-mark-wrapper"><p id="question-mark">?</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pick-ad-main">
+    <p id="i-want-ad-text">אני רוצה לפרסם מודעה בלוח...</p>
+    <div class="ads-boxes-container">
+      <div class="ad-box realestate">
+        <img id="close-house" src="/assets/house.svg" alt="house image" />
+        <img id="open-house" src="/assets/house-active.svg" alt="house image" />
+        <div class="ad-desc">
+          <p class="ad-type">נדל"ן</p>
+          <p class="ad-subtypes">מכירה, השכרה, מסחרי</p>
+          <button class="start-process-btn">מתחילים</button>
+        </div>
+      </div>
+      <div class="ad-box cars">
+        <img id="close-house" src="/assets/house.svg" alt="house image" />
+        <div class="ad-desc">
+          <p class="ad-type">כלי רכב</p>
+          <p class="ad-subtypes">כלי רכב דו גלגליים,כלי שייט,מיוחדים</p>
+          <button class="start-process-btn">מתחילים</button>
+        </div>
+      </div>
+      <div class="ad-box realestate">
+        <img id="close-house" src="/assets/house.svg" alt="house image" />
+        <img id="open-house" src="/assets/house-active.svg" alt="house image" />
+        <div class="ad-desc">
+          <p class="ad-type">נדל"ן</p>
+          <p class="ad-subtypes">מכירה, השכרה, מסחרי</p>
+          <button class="start-process-btn">מתחילים</button>
+        </div>
+      </div>
+      <div class="ad-box realestate">
+        <img id="close-house" src="/assets/house.svg" alt="house image" />
+        <img id="open-house" src="/assets/house-active.svg" alt="house image" />
+        <div class="ad-desc">
+          <p class="ad-type">נדל"ן</p>
+          <p class="ad-subtypes">מכירה, השכרה, מסחרי</p>
+          <button class="start-process-btn">מתחילים</button>
+        </div>
+      </div>
+      <div class="ad-box realestate">
+        <img id="close-house" src="/assets/house.svg" alt="house image" />
+        <img id="open-house" src="/assets/house-active.svg" alt="house image" />
+        <div class="ad-desc">
+          <p class="ad-type">נדל"ן</p>
+          <p class="ad-subtypes">מכירה, השכרה, מסחרי</p>
+          <button class="start-process-btn">מתחילים</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-modal-dummy"></div>

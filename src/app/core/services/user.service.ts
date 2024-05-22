@@ -73,16 +73,18 @@ export class UserService {
 
   checkSessionStorage() {
     const token: string | null = sessionStorage.getItem('TOKEN');
-    console.log(token);
+    // I placed the next method of the token here so before i try to make a get req
+    // to the server i will update the token state so the auth interceptor can successfuly send
+    // the token along with the request
+    this._token.next(token);
     if (token != null) {
       console.log(token);
       this.getUser()
         .pipe(first())
         .subscribe({
           next: (user) => {
-            this._token.next(token);
             console.log(user);
-            this._user.next(user);
+            this._user.next(user.user);
           },
           error: (err) => {
             console.log(err);
@@ -93,5 +95,9 @@ export class UserService {
           },
         });
     }
+  }
+
+  getJwtToken() {
+    return this._token.getValue();
   }
 }
