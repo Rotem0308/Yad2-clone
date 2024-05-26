@@ -1,0 +1,167 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixin.scss" as *;
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.create-ad-container {
+  display: flex;
+  flex-direction: column;
+  background-color: $light-gray;
+  min-height: 100%;
+  .create-ad-header {
+    @include flex-between;
+    padding-inline: 1rem;
+    background-color: white;
+    height: 3.5rem;
+    box-shadow: $generic-shadow;
+    .logo-container {
+      @include flex-center;
+      height: 100%;
+      gap: 1rem;
+      .new-ad-text {
+        font-weight: 400;
+        font-size: 1.1rem;
+        color: $blackish;
+        @media (max-width: $mobile) {
+          display: none;
+        }
+      }
+    }
+    .nav-links-container {
+      display: flex;
+      position: relative;
+      gap: 0.5rem;
+      height: 100%;
+      padding-inline: 0.5rem;
+
+      .user-link {
+        color: $orange;
+        padding-inline: 1rem;
+        .user-icon {
+          color: $orange;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: $light-orange;
+          border: 1px solid $orange;
+          @include flex-center;
+        }
+
+        &:hover {
+          .user-options {
+            // height: 5rem;
+            border: 1px solid gainsboro;
+            list-style: none;
+            flex-direction: column;
+            align-items: center;
+            // justify-content: center;
+            // display: none;
+            border-radius: 3px;
+            position: absolute;
+            top: 100%;
+            right: -3rem;
+            width: 200px;
+            min-height: 250px;
+            background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            :nth-child(4) {
+              border-bottom: 1px solid gainsboro;
+            }
+            .logout-container {
+              display: flex;
+              align-items: center;
+              height: 100%;
+              width: 100%;
+              padding-right: 1rem;
+              &:hover {
+                background-color: $light-gray;
+              }
+
+              // fill: white;
+            }
+            p {
+              display: flex;
+              align-items: center;
+              height: 100%;
+              width: 100%;
+              padding-right: 1rem;
+              &:hover {
+                background-color: $light-gray;
+              }
+            }
+          }
+        }
+      }
+      .box {
+        @include flex-center;
+        cursor: pointer;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+      }
+      .exit {
+        #exit-text {
+          @include flex-center;
+          gap: 0.5rem;
+          border-radius: 30px;
+          border: 1px solid gainsboro;
+          padding: 0.3rem 1.3rem;
+          &:hover {
+            border: 1px solid gray;
+          }
+        }
+        svg {
+          margin-top: 5px;
+          transform: scale(1.4);
+        }
+      }
+      .contact {
+        #contact-text {
+          border-radius: 30px;
+          border: 1px solid gainsboro;
+          padding: 0.5rem 1.5rem;
+          &:hover {
+            border: 1px solid gray;
+          }
+        }
+        @media (min-width: $mobile) {
+        }
+      }
+      .user-options {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 0;
+        color: black;
+        overflow: hidden;
+        position: absolute;
+        top: 100%;
+        background-color: white;
+        transition: height 0.5s ease-out;
+        white-space: nowrap;
+        font-weight: 400;
+        font-size: 0.9rem;
+        border-radius: 4px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05);
+        .link {
+          padding: 0.4rem 0.5rem;
+          width: 100%;
+          cursor: pointer;
+          &:hover {
+            color: $orange;
+            background-color: $light-gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+.wizard-container {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}

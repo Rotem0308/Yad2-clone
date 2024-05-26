@@ -1,0 +1,17 @@
+<div
+  class="asset-type-container"
+  [ngStyle]="{ 'background-color': isComplete ? 'transparent' : 'white' }"
+>
+  <app-wizard-summary
+    [number]="1"
+    [text]="'אני רוצה להשכיר הנכס'"
+    [state]="isComplete"
+    (onEditClick)="isComplete = !isComplete"
+  ></app-wizard-summary>
+  <div class="assets-selections" *ngIf="!isComplete">
+    <div class="asset-option" (click)="isComplete = !isComplete">
+      <img src="assets/house-active.svg" alt="house-for-sell" />
+      <p class="text">השכרה</p>
+    </div>
+  </div>
+</div>

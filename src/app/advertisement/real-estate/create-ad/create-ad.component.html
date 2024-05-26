@@ -1,0 +1,51 @@
+<div class="create-ad-container">
+  <div class="create-ad-header">
+    <div class="logo-container">
+      <img src="/assets/logo.svg" alt="yad2 logo" />
+      <p class="new-ad-text">פרסום מודעה חדשה</p>
+    </div>
+    <div class="nav-links-container">
+      <div class="user-link box">
+        <p class="user-icon">
+          {{ user ? user.firstName : "ra" }}
+        </p>
+        <div class="user-options">
+          <p class="">עריכת פרופיל</p>
+          <p class="">המודעות שלי</p>
+          <p class="">חיפושים אחרונים</p>
+          <p class="">חזרה לאתר הראשי</p>
+          <div class="logout-container">
+            <app-logout class="logout" [color]="''"></app-logout>
+            <p>התנתקות</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact box">
+        <p id="contact-text">צור קשר</p>
+      </div>
+      <div class="exit box">
+        <div id="exit-text">
+          <p>יציאה</p>
+          <p>
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.935 5.278a.75.75 0 01.085.982l-.066.078-4.903 5.077 5.146 5.328.066.078a.75.75 0 01-1.145.964l-5.11-5.29-5.109 5.29a.75.75 0 01-1.144-.964l.065-.078 5.146-5.328-4.903-5.077-.065-.078a.75.75 0 011.144-.964l4.866 5.04 4.867-5.04a.75.75 0 011.06-.018z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wizard-container">
+    <app-assets-type></app-assets-type>
+  </div>
+</div>

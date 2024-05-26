@@ -1,0 +1,44 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixin.scss" as *;
+
+.header {
+  width: 100%;
+  height: 4rem;
+  @include flex-between;
+  padding: 1rem;
+  .summary-complete {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+    color: gray;
+    #number {
+      background-color: rgb(226, 255, 252);
+      border: none;
+      transform: scale(1.5);
+    }
+  }
+  .summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.4rem;
+    color: $blackish;
+    #number {
+      font-weight: 500;
+      font-size: 1.2rem;
+      padding: 0.9rem;
+    }
+  }
+  #number {
+    @include flex-center;
+    width: $wizard-number-size;
+    height: $wizard-number-size;
+    border-radius: 50%;
+    border: 2px solid $carrabian-green;
+    color: $carrabian-green;
+  }
+}
+.edit {
+  cursor: pointer;
+}

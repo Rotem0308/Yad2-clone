@@ -1,0 +1,32 @@
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/mixin.scss" as *;
+
+.asset-type-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  background-color: white;
+  min-height: 100%;
+  .assets-selections {
+    width: 100%;
+    padding: 1rem;
+    .asset-option {
+      @include flex-center(column);
+      width: fit-content;
+      height: fit-content;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid gainsboro;
+      .text {
+        font-weight: 500;
+      }
+      &:hover {
+        cursor: pointer;
+        .text {
+          color: $orange;
+        }
+      }
+    }
+  }
+}

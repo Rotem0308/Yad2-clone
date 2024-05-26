@@ -12,6 +12,7 @@ import { LogoutComponent } from './icons/logout/logout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
+import { WizardSummaryComponent } from './wizard-summary/wizard-summary.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PhoneFormatPipe } from './pipes/phone-format.pipe';
     LogoutComponent,
     ErrorMessageComponent,
     PhoneFormatPipe,
+    WizardSummaryComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { PhoneFormatPipe } from './pipes/phone-format.pipe';
     ReactiveFormsModule,
     FormsModule,
     ErrorMessageComponent,
+    WizardSummaryComponent,
     PhoneFormatPipe,
   ],
 })
