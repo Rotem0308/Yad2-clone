@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { WizardSummaryComponent } from './wizard-summary/wizard-summary.component';
+import { ButtonToggleComponent } from './button-toggle/button-toggle.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { WizardSummaryComponent } from './wizard-summary/wizard-summary.componen
     ErrorMessageComponent,
     PhoneFormatPipe,
     WizardSummaryComponent,
+    ButtonToggleComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +46,7 @@ import { WizardSummaryComponent } from './wizard-summary/wizard-summary.componen
     FormsModule,
     ErrorMessageComponent,
     WizardSummaryComponent,
+    ButtonToggleComponent,
     PhoneFormatPipe,
   ],
 })

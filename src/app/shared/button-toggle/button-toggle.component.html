@@ -1,0 +1,10 @@
+<div class="buttons-container">
+  <button
+    [ngClass]="{ focus: indexToFocus == index }"
+    (click)="setValue(value, index)"
+    class="button"
+    *ngFor="let value of values; let index = index"
+  >
+    {{ value }}
+  </button>
+</div>

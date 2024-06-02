@@ -1,0 +1,142 @@
+<div class="asset-features-container">
+  <app-wizard-summary
+    [number]="3"
+    [text]="'על הנכס'"
+    [state]="isComplete"
+    (onEditClick)="isComplete = !isComplete"
+  ></app-wizard-summary>
+
+  <div>
+    <form
+      class="asset-features-form"
+      [formGroup]="assetFeaturesForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form-control">
+        <label for="rooms">מספר חדרים*</label>
+
+        <input
+          type="text"
+          id="rooms"
+          formControlName="rooms"
+          readonly
+          class="number-of-rooms"
+          (click)="isRoomNumberSelectionOn = !isRoomNumberSelectionOn"
+        />
+
+        <ul *ngIf="isRoomNumberSelectionOn" class="list">
+          <li
+            (click)="setRoomNumberInputValue(roomNumber)"
+            *ngFor="let roomNumber of numberOfRooms; let index = index"
+          >
+            <div>
+              {{ roomNumber }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-control">
+        <label for="bathRooms">חדרי מקלחת</label>
+        <app-button-toggle
+          formControlName="bathRooms"
+          id="bathRooms"
+        ></app-button-toggle>
+      </div>
+
+      <div class="form-control">
+        <label for="parkingSpaces">חניה</label>
+        <app-button-toggle
+          formControlName="parkingSpaces"
+          id="parkingSpaces"
+        ></app-button-toggle>
+      </div>
+
+      <div class="form-control">
+        <label for="balcony">מרפסת</label>
+        <app-button-toggle
+          formControlName="balcony"
+          id="balcony"
+        ></app-button-toggle>
+      </div>
+
+      <hr />
+
+      <h2>מאפייני הנכס</h2>
+
+      <div class="features-container">
+        <button
+          (click)="toggleFormFeatureValue(index)"
+          [ngClass]="{
+            feature: true,
+            active: activeFeaturesIndexes.includes(index)
+          }"
+          *ngFor="let feature of viewFeatures; let index = index"
+        >
+          {{ feature }}
+        </button>
+      </div>
+
+      <h2>מה חשוב לך שידעו על הנכס?</h2>
+
+      <div class="description-container">
+        <p style="font-weight: 600">פרוט הנכס</p>
+        <div class="description-data">
+          <div class="bar" [ngSwitch]="getProgressState(desc.textLength)">
+            <div id="progress-10-percent" *ngSwitchCase="'0%'">
+              <p>הידעת: מודעה ללא תיאור, כמעט ולא מקבלת שיחות</p>
+            </div>
+            <div id="progress-10-percent" *ngSwitchCase="'10%'">
+              <p id="red-color">מרגיש לנו שהטקסט שכתבת קצר מידי</p>
+            </div>
+            <div id="progress-20-percent" *ngSwitchCase="'20%'">
+              <p id="orange-color">יופי, המודעה הולכת לכיוון הנכון</p>
+            </div>
+            <div id="progress-20-percent" *ngSwitchCase="'30%'">
+              <p id="orange-color">יופי, המודעה הולכת לכיוון הנכון</p>
+            </div>
+            <div id="progress-20-percent" *ngSwitchCase="'40%'">
+              <p id="orange-color">יופי, המודעה הולכת לכיוון הנכון</p>
+            </div>
+            <div id="progress-50-percent" *ngSwitchCase="'50%'">
+              <p id="yellow-color">אוטוטו...</p>
+            </div>
+            <div id="progress-100-percent" *ngSwitchCase="'100%'">
+              <p id="green-color">בול!</p>
+            </div>
+          </div>
+
+          <div class="text-length">{{ desc.textLength }}/400</div>
+        </div>
+        <div class="textarea-bar-container">
+          <div class="bar" [ngSwitch]="getProgressState(desc.textLength)">
+            <div id="progress-10-percent" *ngSwitchCase="'10%'"></div>
+            <div id="progress-20-percent" *ngSwitchCase="'20%'"></div>
+            <div id="progress-30-percent" *ngSwitchCase="'30%'"></div>
+            <div id="progress-40-percent" *ngSwitchCase="'40%'"></div>
+            <div id="progress-50-percent" *ngSwitchCase="'50%'"></div>
+            <div id="progress-100-percent" *ngSwitchCase="'100%'"></div>
+          </div>
+          <textarea
+            class="description"
+            formControlName="description"
+            cols="20"
+            rows="6"
+            maxlength="400"
+            [placeholder]="textareaPlaceHolder"
+            #desc
+          ></textarea>
+        </div>
+        <p class="note">
+          אין צורך להוסיף מספר טלפון כחלק מהתיאור, בהמשך התהליך יש אזור מסודר
+          לזה
+        </p>
+      </div>
+
+      <div class="btn-container">
+        <button>חזרה</button>
+        <button class="next-stage-btn">המשך לשלב הבא</button>
+      </div>
+    </form>
+  </div>
+</div>

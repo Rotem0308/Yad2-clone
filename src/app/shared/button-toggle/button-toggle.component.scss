@@ -1,0 +1,32 @@
+@use "../../styles/variables.scss" as *;
+
+.buttons-container {
+  display: flex;
+  border-radius: 15px;
+  max-width: 100%;
+  :nth-child(4) {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  :nth-child(1) {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  .button {
+    padding-block: 0.8rem;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid lightgray;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid $orange;
+      color: $orange;
+    }
+    &.focus {
+      border: 1px solid $orange;
+      color: $orange;
+      background-color: $light-orange;
+    }
+  }
+}

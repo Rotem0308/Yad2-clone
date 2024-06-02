@@ -1,1 +1,214 @@
-<p>asset-address works!</p>
+<div class="asset-address-container">
+  <app-wizard-summary
+    [number]="2"
+    [text]="'כתובת הנכס'"
+    [state]="isComplete"
+    (onEditClick)="isComplete = !isComplete"
+  ></app-wizard-summary>
+  <div>
+    <form
+      class="asset-address-form"
+      [formGroup]="assetAddressForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <p id="form-text">סימנו עבורך את שדות החובה, שלא נפספס פרט חשוב</p>
+
+      <div class="form-control">
+        <label for="city">יישוב*</label>
+        <input
+          type="text"
+          placeholder="איפה נמצא הנכס?"
+          id="city"
+          formControlName="city"
+          (focus)="isCityInputFocus = true"
+        />
+        <div *ngIf="cities$ | async as cities" class="select-container">
+          <select
+            *ngIf="cities.result.records.length > 0 && isCityInputFocus"
+            (change)="setCityInputValue($event)"
+          >
+            <option value="">תבחר את העיר שלך</option>
+
+            <option
+              [value]="city['שם_ישוב']"
+              *ngFor="let city of cities.result.records; let index = index"
+            >
+              {{ city["שם_ישוב"] }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label for="street">רחוב*</label>
+        <input
+          type="text"
+          placeholder="הכנסת שם הרחוב"
+          id="street"
+          formControlName="street"
+          (focus)="isStreetInputFocus = true"
+        />
+        <div *ngIf="streets$ | async as streets" class="select-container">
+          <select
+            *ngIf="streets.result.records.length > 0 && isStreetInputFocus"
+            (change)="setStreetInputValue($event)"
+          >
+            <option value="">תבחר את הרחוב שלך</option>
+
+            <option
+              [value]="street['שם_רחוב']"
+              *ngFor="let street of streets.result.records; let index = index"
+            >
+              {{ street["שם_רחוב"] }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex-row">
+        <div class="form-control">
+          <label for="houseNumber">מס' בית*</label>
+          <input
+            type="text"
+            placeholder="מספר בית"
+            id="houseNumber"
+            formControlName="houseNumber"
+          />
+        </div>
+        <div class="form-control">
+          <label for="apartmentNumber">מס' דירה</label>
+          <input
+            type="text"
+            placeholder="מספר דירה"
+            id="apartmentNumber"
+            formControlName="apartmentNumber"
+          />
+        </div>
+      </div>
+
+      <div class="flex-row">
+        <div class="form-control">
+          <label for="floor">קומה*</label>
+          <input
+            type="number"
+            placeholder="מספר קומה"
+            id="floor"
+            formControlName="floor"
+          />
+        </div>
+        <div class="form-control">
+          <label for="totalFloors">סה״כ קומות בבניין*</label>
+          <input
+            type="number"
+            placeholder="מספר קומות"
+            id="totalFloors"
+            formControlName="totalFloors"
+          />
+        </div>
+        <div class="flex-center">
+          <input type="checkbox" id="isOnColums" formControlName="isOnColums" />
+          <label for="isOnColums">על עמודים</label>
+        </div>
+      </div>
+
+      <div class="form-control blocked">
+        <label for="street">שכונה</label>
+        <input />
+        <p>המידע מגיע מגוף ממשלתי ולא ניתן לשינוי</p>
+      </div>
+
+      <div class="form-control blocked">
+        <label for="street">אזור</label>
+        <input />
+        <p>המידע מגיע מגוף ממשלתי ולא ניתן לשינוי</p>
+      </div>
+
+      <hr />
+
+      <div class="form-control">
+        <label for="assetType">סוג הנכס*</label>
+
+        <input
+          type="text"
+          placeholder="דירה או אולי פנטהאוז"
+          id="assetType"
+          formControlName="assetType"
+          readonly
+          class="asset-type"
+          (click)="isAssetTypeSelectionOn = !isAssetTypeSelectionOn"
+        />
+
+        <ul *ngIf="isAssetTypeSelectionOn" class="list">
+          <li
+            (click)="setAssetTypeInputValue(assetType)"
+            *ngFor="let assetType of assets; let index = index"
+          >
+            <div>
+              {{ assetType }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-control">
+        <label for="assetState">מצב הנכס*</label>
+
+        <input
+          type="text"
+          placeholder="משופץ? חדש מקבלן?"
+          id="assetState"
+          formControlName="assetState"
+          readonly
+          class="asset-type"
+          (click)="isAssetStateSelectionOn = !isAssetStateSelectionOn"
+        />
+
+        <ul *ngIf="isAssetStateSelectionOn" class="list">
+          <li
+            (click)="setAssetStateInputValue(assetState)"
+            *ngFor="let assetState of conditions; let index = index"
+          >
+            <div>
+              {{ assetState }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-control">
+        <label for="airDirections">כיווני אוויר</label>
+        <app-button-toggle formControlName="airDirections"></app-button-toggle>
+      </div>
+
+      <div class="form-control">
+        <label for="openView">נוף פתוח</label>
+        <app-button-toggle formControlName="openView"></app-button-toggle>
+      </div>
+
+      <div class="bottom-checkbox-container">
+        <input type="checkbox" id="isRearAsset" formControlName="isRearAsset" />
+        <label for="isRearAsset">נכס עורפי</label>
+      </div>
+
+      <div class="bottom-checkbox-container">
+        <input
+          type="checkbox"
+          id="isMonthlyUpdated"
+          formControlName="isMonthlyUpdated"
+        />
+        <label for="isMonthlyUpdated"
+          >אני רוצה לקבל עדכון חודשי במייל עם הערכת שווי מעודכנת עבור הנכס,
+          עסקאות באיזור והצעות מקצועיות מיועצי נדל״ן</label
+        >
+      </div>
+
+      <div class="commercial"></div>
+
+      <div class="btn-container">
+        <button>חזרה</button>
+        <button class="next-stage-btn">המשך לשלב הבא</button>
+      </div>
+      <!-- <button (click)="setvalid()">form valid</button> -->
+    </form>
+  </div>
+</div>

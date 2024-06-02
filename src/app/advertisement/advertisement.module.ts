@@ -7,9 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 import { CreateAdComponent } from './real-estate/create-ad/create-ad.component';
 import { AssetsTypeComponent } from './real-estate/create-ad-components/assets-type/assets-type.component';
 import { AssetAddressComponent } from './real-estate/create-ad-components/asset-address/asset-address.component';
+import { AssetFeaturesComponent } from './real-estate/create-ad-components/asset-features/asset-features.component';
 
 @NgModule({
-  declarations: [PickAdComponent, CreateAdComponent, AssetsTypeComponent, AssetAddressComponent],
+  declarations: [PickAdComponent, CreateAdComponent, AssetsTypeComponent, AssetAddressComponent, AssetFeaturesComponent],
   imports: [SharedModule, AdvertisementRoutingModule],
 })
 export class AdvertisementModule {}
