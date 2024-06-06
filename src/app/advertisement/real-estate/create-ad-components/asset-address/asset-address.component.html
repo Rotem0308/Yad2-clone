@@ -5,6 +5,7 @@
     [state]="isComplete"
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
+
   <div>
     <form
       class="asset-address-form"
@@ -113,13 +114,13 @@
 
       <div class="form-control blocked">
         <label for="street">שכונה</label>
-        <input />
+        <input [placeholder]="neighborhood" />
         <p>המידע מגיע מגוף ממשלתי ולא ניתן לשינוי</p>
       </div>
 
       <div class="form-control blocked">
         <label for="street">אזור</label>
-        <input />
+        <input [placeholder]="area" />
         <p>המידע מגיע מגוף ממשלתי ולא ניתן לשינוי</p>
       </div>
 

@@ -27,9 +27,10 @@ export class AssetAddressComponent implements OnInit {
   isAssetStateSelectionOn: boolean = false;
   assets: string[] = assets;
   conditions: string[] = conditions;
-
+  area: string = '';
+  neighborhood: string = '';
   constructor(private fb: FormBuilder, private dataService: DataService) {}
-
+  //איתור מחוז לפי יישוב
   ngOnInit(): void {
     this.assetAddressForm = this.fb.group({
       city: this.fb.control('', [Validators.required]),
@@ -39,8 +40,6 @@ export class AssetAddressComponent implements OnInit {
       floor: this.fb.control('', [Validators.required]),
       totalFloors: this.fb.control('', [Validators.required]),
       isOnColums: this.fb.control(false),
-      // neighborhood: this.fb.control('', [Validators.required]),
-      // area: this.fb.control('', [Validators.required]),
       assetType: this.fb.control('', [Validators.required]),
       assetState: this.fb.control('', [Validators.required]),
       airDirections: this.fb.control(['1', '2', '3', '4']),
@@ -135,5 +134,6 @@ export class AssetAddressComponent implements OnInit {
     assetStateControl?.setValue(assetState);
     this.isAssetStateSelectionOn = false;
   }
+
   onSubmit() {}
 }

@@ -6,7 +6,7 @@
   margin-right: 1rem;
   @media (min-width: $mobile) {
     .form-control {
-      width: 17rem;
+      width: 16rem;
     }
   }
   .btn-container {
@@ -46,9 +46,13 @@ h2 {
     color: $blackish;
   }
   input {
-    padding: 1rem;
-    border: 2px solid gainsboro;
-    border-radius: 5px;
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+    transition: border 0.5s;
+    &:hover {
+      border: 1px solid black;
+    }
     &::placeholder {
       font-size: 1rem;
     }
@@ -68,7 +72,7 @@ h2 {
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: $blackish lightgray;
-
+  box-shadow: $generic-shadow;
   z-index: 1;
   li {
     padding: 1rem;

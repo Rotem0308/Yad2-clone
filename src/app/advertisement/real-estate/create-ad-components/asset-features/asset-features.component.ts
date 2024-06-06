@@ -50,12 +50,7 @@ export class AssetFeaturesComponent {
       ]),
     });
 
-    // this.assetFeaturesForm
-    //   .get('features')
-    //   ?.get('HasAccessForDisabled')
-    //   ?.valueChanges.subscribe((res) => {
-    //     console.log(res);
-    //   });
+    
 
     this.assetFeaturesForm
       ?.get('features')

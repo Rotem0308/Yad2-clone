@@ -84,12 +84,12 @@ export class UserService {
         .subscribe({
           next: (user) => {
             console.log(user);
-            this._user.next(user.user);
+            user.user && this._user.next(user.user);
           },
           error: (err) => {
             console.log(err);
             this.banner.open({
-              message: err?.error || err?.statusText,
+              message: 'No User To Login',
               type: createBannerType('error'),
             });
           },

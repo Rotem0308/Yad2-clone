@@ -18,12 +18,15 @@ export class BannerComponent {
       next: (resBanner: any) => {
         this.banner = resBanner;
         console.log(resBanner);
-        console.log(this.banner);
       },
       error: (err: any) => {
         console.log(err);
       },
     });
+
+    setTimeout(() => {
+      this.close();
+    }, 10000);
   }
 
   close() {

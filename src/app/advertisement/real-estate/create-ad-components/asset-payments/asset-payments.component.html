@@ -1,0 +1,191 @@
+<div class="asset-payments-container">
+  <app-wizard-summary
+    [number]="4"
+    [text]="'תשלומים, תאריכים ועוד'"
+    [state]="isComplete"
+    (onEditClick)="isComplete = !isComplete"
+  ></app-wizard-summary>
+
+  <div>
+    <form
+      class="asset-payments-form"
+      [formGroup]="assetPaymentsForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form-control">
+        <label for="rentPayments">מספר תשלומים*</label>
+
+        <input
+          type="text"
+          id="rentPayments"
+          formControlName="rentPayments"
+          readonly
+          class="rentPayments"
+          (click)="isPaymentsSelectionOn = !isPaymentsSelectionOn"
+        />
+
+        <ul *ngIf="isPaymentsSelectionOn" class="list">
+          <li
+            (click)="setPaymentsInputValue(payment)"
+            *ngFor="let payment of paymentsArray; let index = index"
+          >
+            <div>
+              {{ payment }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-control">
+        <label for="houseCommitte">ועד בית</label>
+        <input
+          type="text"
+          placeholder="תשלום לועד בית"
+          id="houseCommitte"
+          formControlName="houseCommitte"
+          maxlength="9"
+          (keydown)="onKeyDown($event)"
+          (input)="FormatInput($event, 'houseCommitte')"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="propertyTax">ארנונה לחודשיים</label>
+        <input
+          type="text"
+          placeholder="סכום הארנונה לתשלום"
+          id="propertyTax"
+          formControlName="propertyTax"
+          maxlength="9"
+          (keydown)="onKeyDown($event)"
+          (input)="FormatInput($event, 'propertyTax')"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="builtSquareMeter">מ"ר בנוי</label>
+        <input
+          type="text"
+          placeholder='כמה מ"ר יש בנכס'
+          id="builtSquareMeter"
+          formControlName="builtSquareMeter"
+          maxlength="9"
+          (keydown)="onKeyDown($event)"
+          (input)="FormatInput($event, 'builtSquareMeter')"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="gardenSquareMeter">מ"ר גינה</label>
+        <input
+          type="text"
+          id="gardenSquareMeter"
+          formControlName="gardenSquareMeter"
+          maxlength="9"
+          (keydown)="onKeyDown($event)"
+          (input)="FormatInput($event, 'gardenSquareMeter')"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="totalSquareMeter">גודל במ״ר סך הכל*</label>
+        <input
+          type="text"
+          id="totalSquareMeter"
+          formControlName="totalSquareMeter"
+          maxlength="9"
+          (keydown)="onKeyDown($event)"
+          (input)="FormatInput($event, 'totalSquareMeter')"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="rent">מחיר</label>
+        <div class="rent-input">
+          <input
+            type="text"
+            placeholder="איפה נמצא הנכס?"
+            id="rent"
+            formControlName="rent"
+            maxlength="11"
+            (keydown)="onKeyDown($event)"
+            (input)="FormatInput($event, 'rent')"
+          />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
+              d="M32 32C14.3 32 0 46.3 0 64V448c0 17.7 14.3 32 32 32s32-14.3 32-32V96H192c35.3 0 64 28.7 64 64V320c0 17.7 14.3 32 32 32s32-14.3 32-32V160c0-70.7-57.3-128-128-128H32zM320 480c70.7 0 128-57.3 128-128V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V352c0 35.3-28.7 64-64 64H192V192c0-17.7-14.3-32-32-32s-32 14.3-32 32V448c0 17.7 14.3 32 32 32H320z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label for="pricePerMeter">מחיר למטר</label>
+        <div class="rent-input" id="block">
+          <input
+            type="text"
+            id="pricePerMeter"
+            formControlName="pricePerMeter"
+            readonly
+          />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
+              d="M32 32C14.3 32 0 46.3 0 64V448c0 17.7 14.3 32 32 32s32-14.3 32-32V96H192c35.3 0 64 28.7 64 64V320c0 17.7 14.3 32 32 32s32-14.3 32-32V160c0-70.7-57.3-128-128-128H32zM320 480c70.7 0 128-57.3 128-128V64c0-17.7-14.3-32-32-32s-32 14.3-32 32V352c0 35.3-28.7 64-64 64H192V192c0-17.7-14.3-32-32-32s-32 14.3-32 32V448c0 17.7 14.3 32 32 32H320z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="date-container">
+        <div
+          class="form-control"
+          [ngClass]="{
+            disabled: assetPaymentsForm.get('entryDate')?.disabled
+          }"
+        >
+          <label for="entryDate">תאריך כניסה*</label>
+          <input
+            type="date"
+            id="entryDate"
+            formControlName="entryDate"
+            [min]="currentDate"
+          />
+        </div>
+
+        <div class="date-checkboxs">
+          <div class="checkbox-container">
+            <input
+              id="immidiate"
+              type="checkbox"
+              formControlName="isEntryDateImmediate"
+              (change)="unCheckOtherBoxes('immidiate')"
+            />
+            <label for="immidiate">מיידי</label>
+          </div>
+          <div class="checkbox-container">
+            <input
+              id="flex"
+              type="checkbox"
+              formControlName="isEntryDateFlexable"
+              (change)="unCheckOtherBoxes('flex')"
+            />
+            <label for="flex">גמיש</label>
+          </div>
+          <div class="checkbox-container">
+            <input
+              id="longRange"
+              type="checkbox"
+              formControlName="isForLongTerm"
+            />
+            <label for="longRange">לטווח הארוך</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <button>חזרה</button>
+        <button class="next-stage-btn">המשך לשלב הבא</button>
+      </div>
+    </form>
+  </div>
+</div>

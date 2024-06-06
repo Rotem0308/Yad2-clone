@@ -1,0 +1,86 @@
+<div class="phone-modal" *ngIf="isModalOpen" (click)="onModalClosed()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="exit" (click)="onModalClosed()">X</button>
+    <div class="add-phone-container">
+      <p id="text">מספרי הטלפון שלך</p>
+      <input
+        class="phone-input"
+        placeholder="הקלד מספר טלפון"
+        type="number"
+        max="10"
+      />
+      <button class="add-phone-btn" (click)="onModalClosed()">הוסף מספר</button>
+    </div>
+
+    <div class="existing-contact-container">
+      <div class="existing-contact">
+        <p class="contact" *ngFor="let contact of existingUserContacts">
+          {{ contact }}
+        </p>
+        <button class="remove-contact">-</button>
+      </div>
+      <p class="dummy-contact">לא בשימוש</p>
+    </div>
+    <button class="add-phone-btn">בחירה</button>
+  </div>
+</div>
+
+<div class="asset-contact-info-container">
+  <app-wizard-summary
+    [number]="6"
+    [text]="'פרטי התקשרות'"
+    [state]="isComplete"
+    (onEditClick)="isComplete = !isComplete"
+  ></app-wizard-summary>
+
+  <div>
+    <form class="asset-contact-info-form" [formGroup]="assetContactInfoForm">
+      <div class="form-control">
+        <label for="assetOwner">בעלות הנכס</label>
+
+        <input
+          type="text"
+          id="assetOwner"
+          formControlName="assetOwner"
+          readonly
+          class="asset-owner"
+          (click)="isOwnerSelectionOn = !isOwnerSelectionOn"
+        />
+
+        <ul *ngIf="isOwnerSelectionOn" class="list">
+          <li
+            (click)="setOwnerInputValue(owner)"
+            *ngFor="let owner of ownerOptions; let index = index"
+          >
+            <div>
+              {{ owner }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-control">
+        <label for="contactName">השם שלך*</label>
+        <input type="text" id="contactName" formControlName="contactName" />
+      </div>
+
+      <div class="form-control">
+        <label for="contactPhone">טלפון*</label>
+        <div class="phone-container" (click)="onModalOpen()">
+          <input
+            type="text"
+            id="contactPhone"
+            formControlName="contactPhone"
+            readonly
+          />
+          <div class="plus">+</div>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <button>חזרה</button>
+        <button class="next-stage-btn">המשך לשלב הבא</button>
+      </div>
+    </form>
+  </div>
+</div>

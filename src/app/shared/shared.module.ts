@@ -14,6 +14,7 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { WizardSummaryComponent } from './wizard-summary/wizard-summary.component';
 import { ButtonToggleComponent } from './button-toggle/button-toggle.component';
+import { FormatNumberPipe } from './pipes/format-number.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ButtonToggleComponent } from './button-toggle/button-toggle.component';
     PhoneFormatPipe,
     WizardSummaryComponent,
     ButtonToggleComponent,
+    FormatNumberPipe,
   ],
   imports: [
     CommonModule,

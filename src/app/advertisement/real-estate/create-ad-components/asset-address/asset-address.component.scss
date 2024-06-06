@@ -5,7 +5,7 @@
   padding: 0.5rem 1rem;
   @media (min-width: $mobile) {
     .form-control {
-      width: 17rem;
+      width: 16rem;
     }
   }
 
@@ -81,9 +81,13 @@
       color: $blackish;
     }
     input {
-      padding: 1rem;
-      border: 2px solid gainsboro;
-      border-radius: 5px;
+      padding: 0.8rem 1rem;
+      border-radius: 4px;
+      border: 1px solid lightgray;
+      transition: border 0.5s;
+      &:hover {
+        border: 1px solid black;
+      }
       &::placeholder {
         font-size: 1rem;
       }
@@ -103,6 +107,7 @@
   scrollbar-width: thin;
   scrollbar-color: $blackish lightgray;
   z-index: 1;
+  box-shadow: $generic-shadow;
   li {
     padding: 1rem;
     list-style: none;
