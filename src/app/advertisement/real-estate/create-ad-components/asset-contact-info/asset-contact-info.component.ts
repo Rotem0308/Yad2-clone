@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,18 +10,32 @@ export class AssetContactInfoComponent implements OnInit {
   isComplete!: boolean;
   isModalOpen: boolean = false;
   isOwnerSelectionOn: boolean = false;
+  isMainContact!: boolean;
   ownerOptions: string[] = ['בעל הנכס', 'שוכר נוכחי', 'אחר'];
   assetContactInfoForm!: FormGroup;
-  existingUserContacts: string[] = ['0524684019'];
+  contactInUse: string = '';
+  contactsAvailable: string[] = ['0524684019'];
+  isPhoneInputValid: boolean = false;
+  phoneNumberInput: string = '';
+  isAddContectOn: boolean = false;
+
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
     this.assetContactInfoForm = this.fb.group({
       assetOwner: this.fb.control(''),
       contactName: this.fb.control('', Validators.required),
       contactPhone: this.fb.control('', Validators.required),
-      additionalContactName: this.fb.control('', Validators.required),
-      additionalContactPhone: this.fb.control('', Validators.required),
+      additionalContactName: this.fb.control(''),
+      additionalContactPhone: this.fb.control(''),
+      hasReadTerms: this.fb.control(false, Validators.requiredTrue),
+      willAcceptUpdates: this.fb.control(false),
     });
+  }
+
+  ToggleTermsControl() {
+    this.assetContactInfoForm
+      .get('hasReadTerms')
+      ?.setValue(!this.assetContactInfoForm.get('hasReadTerms')?.value);
   }
 
   setOwnerInputValue(owner: string) {
@@ -29,16 +43,79 @@ export class AssetContactInfoComponent implements OnInit {
     this.isOwnerSelectionOn = false;
   }
 
-  onModalOpen() {
+  onModalOpen(MainContact: boolean) {
+    this.isMainContact = MainContact;
     this.isModalOpen = true;
+    //disable scrolling
     document.body.style.overflow = 'hidden';
   }
+
   onModalClosed() {
+    this.isMainContact = false;
+
     this.isModalOpen = false;
+    //enable scrolling
     document.body.style.overflow = 'auto';
   }
 
-  addPhoneByControl(controlName: string): void {}
+  updatePhoneNumberValidity(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value.trim();
+    if (!inputValue.startsWith('0')) return;
+    if (inputValue) {
+      this.phoneNumberInput = inputValue;
+      this.isPhoneInputValid = inputValue.length == 10;
+    }
+  }
+
+  toggleContactPhoneState() {
+    this.isAddContectOn = !this.isAddContectOn;
+    const additionalContactName = this.assetContactInfoForm.get(
+      'additionalContactName'
+    );
+    const additionalContactPhone = this.assetContactInfoForm.get(
+      'additionalContactPhone'
+    );
+    if (this.isAddContectOn) {
+      additionalContactName?.setValidators(Validators.required);
+      additionalContactPhone?.setValidators(Validators.required);
+    } else {
+      additionalContactName?.clearValidators();
+      additionalContactPhone?.setValidators(Validators.required);
+    }
+    this.assetContactInfoForm.updateValueAndValidity();
+  }
+
+  addToAvailableContacts() {
+    if (this.isPhoneInputValid)
+      this.contactsAvailable.push(this.phoneNumberInput);
+  }
+
+  addContact() {
+    if (this.contactInUse.length <= 0) return;
+    if (this.isMainContact) {
+      this.assetContactInfoForm
+        .get('contactPhone')
+        ?.setValue(this.contactInUse);
+    } else {
+      this.assetContactInfoForm
+        .get('additionalContactPhone')
+        ?.setValue(this.contactInUse);
+    }
+    this.assetContactInfoForm.updateValueAndValidity();
+    this.contactInUse = '';
+    this.phoneNumberInput = '';
+    this.onModalClosed();
+  }
+
+  clearContactInUse() {
+    this.contactInUse = '';
+  }
+
+  addToContactInUse(contact: string) {
+    if (this.contactInUse.length <= 0) {
+      this.contactInUse = contact;
+    }
+  }
 
   onSubmit() {}
 }

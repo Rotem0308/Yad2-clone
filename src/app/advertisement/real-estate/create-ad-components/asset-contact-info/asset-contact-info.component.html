@@ -7,21 +7,40 @@
         class="phone-input"
         placeholder="הקלד מספר טלפון"
         type="number"
-        max="10"
+        (input)="updatePhoneNumberValidity($event)"
       />
-      <button class="add-phone-btn" (click)="onModalClosed()">הוסף מספר</button>
+      <button
+        [disabled]="!isPhoneInputValid"
+        [ngClass]="{
+          'add-phone-btn': true
+        }"
+        (click)="onModalClosed()"
+      >
+        הוסף מספר
+      </button>
     </div>
 
     <div class="existing-contact-container">
-      <div class="existing-contact">
-        <p class="contact" *ngFor="let contact of existingUserContacts">
-          {{ contact }}
+      <div class="used-contact" *ngIf="contactInUse.length > 0">
+        <p class="contact">
+          {{ contactInUse }}
         </p>
-        <button class="remove-contact">-</button>
+        <button class="remove-contact" (click)="clearContactInUse()">-</button>
       </div>
+
       <p class="dummy-contact">לא בשימוש</p>
+      <div class="available-contacts" *ngIf="contactInUse.length <= 0">
+        <p
+          class="contact"
+          *ngFor="let contact of contactsAvailable"
+          (click)="addToContactInUse(contact)"
+        >
+          {{ contact }}
+          <button class="add-contact">+</button>
+        </p>
+      </div>
     </div>
-    <button class="add-phone-btn">בחירה</button>
+    <button class="add-phone-btn" (click)="addContact()">בחירה</button>
   </div>
 </div>
 
@@ -66,7 +85,7 @@
 
       <div class="form-control">
         <label for="contactPhone">טלפון*</label>
-        <div class="phone-container" (click)="onModalOpen()">
+        <div class="phone-container" (click)="onModalOpen(true)">
           <input
             type="text"
             id="contactPhone"
@@ -76,6 +95,57 @@
           <div class="plus">+</div>
         </div>
       </div>
+
+      <ng-container *ngIf="isAddContectOn">
+        <div class="form-control">
+          <label for="additionalContactName">השם שלך*</label>
+          <input
+            type="text"
+            id="additionalContactName"
+            formControlName="additionalContactName"
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="additionalContactPhone">טלפון*</label>
+          <div class="phone-container" (click)="onModalOpen(false)">
+            <input
+              type="text"
+              id="additionalContactPhone"
+              formControlName="additionalContactPhone"
+              readonly
+            />
+            <div class="plus">+</div>
+          </div>
+        </div>
+      </ng-container>
+
+      <p class="another__contact" (click)="toggleContactPhoneState()">
+        <span class="plus">{{ isAddContectOn ? "-" : "+" }}</span
+        ><span class="add-or-remove">{{
+          isAddContectOn ? "הסר" : "הוספת"
+        }}</span>
+        איש קשר נוסף
+      </p>
+
+      <hr />
+
+      <div class="agreements">
+        <div class="terms checkbox" (click)="ToggleTermsControl()">
+          <input type="checkbox" formControlName="hasReadTerms" />
+          <p>רק לקרוא ולאשר את <span class>התקנון*</span></p>
+        </div>
+        <div class="updates checkbox">
+          <input type="checkbox" formControlName="willAcceptUpdates" />
+          <p>
+            אשמח לקבל עדכונים, פרסומים, הצעות או טיפים בקשר ללוח המודעות ביד2
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="advertising"></div>
 
       <div class="btn-container">
         <button>חזרה</button>

@@ -1,0 +1,15 @@
+<div class="course__container">
+  <app-wizard-summary
+    [number]="7"
+    [text]="'בחירת מסלול'"
+    [state]="isComplete"
+    (onEditClick)="isComplete = !isComplete"
+  ></app-wizard-summary>
+
+  <div class="course__content">
+    <div>
+      <p class="">הידד! המודעה שלך מוכנה, זה הזמן לבחור מסלול פרסום.</p>
+      <p>חדש! למודעות צהובות, חודש ראשון חינם לשירות</p>
+    </div>
+  </div>
+</div>

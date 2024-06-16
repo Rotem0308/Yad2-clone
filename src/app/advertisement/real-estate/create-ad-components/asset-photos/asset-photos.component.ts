@@ -36,26 +36,47 @@ export class AssetPhotosComponent implements OnInit {
 
   onFileUpload(event: Event) {
     const input = event.target as HTMLInputElement;
-    const files = input.files;
-    if (files != null) {
-      if (files.length > 5) {
-        this.banner.open({
-          message: 'can only Upload Up To 5 Files',
-          type: createBannerType('error'),
-        });
-        this.assetphotosVideosForm.get('photos')?.setValue([]);
-        return event.preventDefault();
-      }
-      console.log(files);
-      const filesContainer: File[] = [];
+    const files: FileList | null = input.files;
+    if (files == null) return false;
 
-      for (let index = 0; index < files?.length; index++) {
-        console.log(files[index].name);
-        filesContainer.push(files[index]);
-      }
-      this.assetphotosVideosForm.get('photos')?.setValue(filesContainer);
+    if (!this.isValidFileUpload(files)) {
+      this.assetphotosVideosForm.get('photos')?.setValue([]);
+      return event.preventDefault();
     }
+
+    this.banner.open({
+      message: 'files loaded successfully',
+      type: createBannerType('success'),
+    });
+
+    const filesContainer: File[] = [];
+
+    for (let index = 0; index < files?.length; index++) {
+      filesContainer.push(files[index]);
+    }
+    this.assetphotosVideosForm.get('photos')?.setValue(filesContainer);
   }
 
-  isValidFileUpload() {}
+  isValidFileUpload(files: FileList) {
+    for (let i = 0; i < files?.length; i++) {
+      if (
+        !files[i].type.includes('image/jpg') ||
+        !files[i].type.includes('image/png')
+      ) {
+        this.banner.open({
+          message: 'only image file are allowed',
+          type: createBannerType('error'),
+        });
+        return false;
+      }
+    }
+    if (files.length > 5) {
+      this.banner.open({
+        message: 'can only Upload Up To 5 Files',
+        type: createBannerType('error'),
+      });
+      return false;
+    }
+    return true;
+  }
 }

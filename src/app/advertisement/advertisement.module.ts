@@ -11,6 +11,7 @@ import { AssetFeaturesComponent } from './real-estate/create-ad-components/asset
 import { AssetPaymentsComponent } from './real-estate/create-ad-components/asset-payments/asset-payments.component';
 import { AssetPhotosComponent } from './real-estate/create-ad-components/asset-photos/asset-photos.component';
 import { AssetContactInfoComponent } from './real-estate/create-ad-components/asset-contact-info/asset-contact-info.component';
+import { CourseComponent } from './real-estate/create-ad-components/course/course.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AssetContactInfoComponent } from './real-estate/create-ad-components/as
     AssetPaymentsComponent,
     AssetPhotosComponent,
     AssetContactInfoComponent,
+    CourseComponent,
   ],
   imports: [SharedModule, AdvertisementRoutingModule],
 })
