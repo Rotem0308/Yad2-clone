@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormDataService } from '../../../../core/services/form-data.service';
+import { Subscription } from 'rxjs';
+import { removeControlsWithEmptyString } from '../../../../helpers/ad-helpers';
 
 @Component({
   selector: 'app-asset-contact-info',
@@ -7,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './asset-contact-info.component.scss',
 })
 export class AssetContactInfoComponent implements OnInit {
-  isComplete!: boolean;
+  isComplete: boolean = false;
   isModalOpen: boolean = false;
   isOwnerSelectionOn: boolean = false;
   isMainContact!: boolean;
@@ -18,8 +21,10 @@ export class AssetContactInfoComponent implements OnInit {
   isPhoneInputValid: boolean = false;
   phoneNumberInput: string = '';
   isAddContectOn: boolean = false;
-
-  constructor(private fb: FormBuilder) {}
+  stepSub!: Subscription;
+  isActive: boolean = false;
+  wizardNumber: number = 6;
+  constructor(private fb: FormBuilder, private formService: FormDataService) {}
   ngOnInit(): void {
     this.assetContactInfoForm = this.fb.group({
       assetOwner: this.fb.control(''),
@@ -29,6 +34,12 @@ export class AssetContactInfoComponent implements OnInit {
       additionalContactPhone: this.fb.control(''),
       hasReadTerms: this.fb.control(false, Validators.requiredTrue),
       willAcceptUpdates: this.fb.control(false),
+    });
+    this.stepSub = this.formService.step$.subscribe({
+      next: (currentStep) => {
+        this.isActive = currentStep == this.wizardNumber;
+        this.isComplete = currentStep > this.wizardNumber;
+      },
     });
   }
 
@@ -50,7 +61,7 @@ export class AssetContactInfoComponent implements OnInit {
     document.body.style.overflow = 'hidden';
   }
 
-  onModalClosed() {
+  onModalClosed(event?: Event) {
     this.isMainContact = false;
 
     this.isModalOpen = false;
@@ -117,5 +128,15 @@ export class AssetContactInfoComponent implements OnInit {
     }
   }
 
-  onSubmit() {}
+  returnToPrev() {
+    this.formService.setStep(this.wizardNumber - 1);
+  }
+
+  onSubmit() {
+    if (!this.assetContactInfoForm.invalid) {
+      removeControlsWithEmptyString(this.assetContactInfoForm);
+      this.formService.setWizardForm(this.assetContactInfoForm.value);
+    }
+    console.log(this.assetContactInfoForm.invalid);
+  }
 }

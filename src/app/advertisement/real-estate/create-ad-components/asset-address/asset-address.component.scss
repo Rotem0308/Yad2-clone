@@ -34,7 +34,7 @@
   }
   .flex-row {
     display: flex;
-    align-items: center;
+    // align-items: center;
     width: 18rem;
     gap: 1rem;
     input {
@@ -144,6 +144,7 @@
 
 .select-container {
   width: 100%;
+  overflow-y: auto;
   select {
     width: 100%;
     padding: 1rem;

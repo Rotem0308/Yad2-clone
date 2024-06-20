@@ -1,12 +1,12 @@
 <div class="asset-payments-container">
   <app-wizard-summary
-    [number]="4"
+    [number]="wizardNumber"
     [text]="'תשלומים, תאריכים ועוד'"
     [state]="isComplete"
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
 
-  <div>
+  <div *ngIf="isActive">
     <form
       class="asset-payments-form"
       [formGroup]="assetPaymentsForm"
@@ -22,9 +22,14 @@
           readonly
           class="rentPayments"
           (click)="isPaymentsSelectionOn = !isPaymentsSelectionOn"
+          (blur)="isPaymentsSelectionOn = false"
         />
 
-        <ul *ngIf="isPaymentsSelectionOn" class="list">
+        <ul
+          *ngIf="isPaymentsSelectionOn"
+          class="list"
+          (mousedown)="$event.preventDefault()"
+        >
           <li
             (click)="setPaymentsInputValue(payment)"
             *ngFor="let payment of paymentsArray; let index = index"
@@ -34,6 +39,9 @@
             </div>
           </li>
         </ul>
+        <app-error-message
+          [error]="globalLengthErrorMessage('rentPayments')"
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -47,6 +55,9 @@
           (keydown)="onKeyDown($event)"
           (input)="FormatInput($event, 'houseCommitte')"
         />
+        <app-error-message
+          [error]="globalLengthErrorMessage('pricePerMeter')"
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -60,6 +71,9 @@
           (keydown)="onKeyDown($event)"
           (input)="FormatInput($event, 'propertyTax')"
         />
+        <app-error-message
+          [error]="globalLengthErrorMessage('pricePerMeter')"
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -73,6 +87,9 @@
           (keydown)="onKeyDown($event)"
           (input)="FormatInput($event, 'builtSquareMeter')"
         />
+        <app-error-message
+          [error]="globalLengthErrorMessage('pricePerMeter')"
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -85,6 +102,9 @@
           (keydown)="onKeyDown($event)"
           (input)="FormatInput($event, 'gardenSquareMeter')"
         />
+        <app-error-message
+          [error]="globalLengthErrorMessage('pricePerMeter')"
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -97,6 +117,9 @@
           (keydown)="onKeyDown($event)"
           (input)="FormatInput($event, 'totalSquareMeter')"
         />
+        <app-error-message
+          [error]="globalLengthErrorMessage('totalSquareMeter')"
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -117,6 +140,9 @@
             />
           </svg>
         </div>
+        <app-error-message
+          [error]="globalLengthErrorMessage('pricePerMeter')"
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -134,6 +160,9 @@
             />
           </svg>
         </div>
+        <app-error-message
+          [error]="globalLengthErrorMessage('pricePerMeter')"
+        ></app-error-message>
       </div>
 
       <div class="date-container">
@@ -150,6 +179,14 @@
             formControlName="entryDate"
             [min]="currentDate"
           />
+          <app-error-message
+            [error]="
+              assetPaymentsForm.get('entryDate')?.invalid &&
+              assetPaymentsForm.get('entryDate')?.touched
+                ? 'תאריך שהוזן לא תקין'
+                : null
+            "
+          ></app-error-message>
         </div>
 
         <div class="date-checkboxs">
@@ -183,8 +220,14 @@
       </div>
 
       <div class="btn-container">
-        <button>חזרה</button>
-        <button class="next-stage-btn">המשך לשלב הבא</button>
+        <button (click)="returnToPrev()">חזרה</button>
+        <button
+          type="submit"
+          class="next-stage-btn"
+          (click)="this.assetPaymentsForm.markAllAsTouched()"
+        >
+          המשך לשלב הבא
+        </button>
       </div>
     </form>
   </div>

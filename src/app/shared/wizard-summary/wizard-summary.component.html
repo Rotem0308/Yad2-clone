@@ -1,6 +1,6 @@
-<div class="header">
+<div [ngClass]="{ header: true, not__active: number > step }">
   <div class="summary" *ngIf="!isStepComplete">
-    <div id="number">{{ number }}</div>
+    <div class="number">{{ number }}</div>
     <p>{{ text }}</p>
   </div>
   <div class="summary-complete" *ngIf="isStepComplete">
@@ -10,7 +10,7 @@
       viewBox="0 0 24 24"
       fill="green"
       xmlns="http://www.w3.org/2000/svg"
-      id="number"
+      class="number"
     >
       <path
         d="M9.874 15.196l7.93-8.733a1.25 1.25 0 111.85 1.68l-8.306 9.148a2 2 0 01-2.985-.026l-4.032-4.602a1.25 1.25 0 111.88-1.648l3.663 4.181z"

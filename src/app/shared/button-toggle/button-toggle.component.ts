@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -29,15 +36,17 @@ export class ButtonToggleComponent implements ControlValueAccessor {
   values: string[] = [];
   onChange: any = (value: string) => {};
   indexToFocus: number = 0;
-  //ControlValueAccessor
 
   writeValue(values: string[]): void {
-    if (values == null) return;
+    if (this.values == null) return;
     this.values = values;
   }
+
   registerOnChange(fn: any): void {
+    fn(this.values[0]);
     this.onChange = fn;
   }
+
   registerOnTouched(fn: any): void {
     // throw new Error('Method not implemented.');
   }

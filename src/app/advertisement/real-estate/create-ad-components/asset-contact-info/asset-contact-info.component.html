@@ -1,5 +1,9 @@
 <div class="phone-modal" *ngIf="isModalOpen" (click)="onModalClosed()">
-  <div class="modal-box" (click)="$event.stopPropagation()">
+  <div
+    class="modal-box"
+    (mousedown)="$event.preventDefault()"
+    (click)="$event.stopPropagation()"
+  >
     <button class="exit" (click)="onModalClosed()">X</button>
     <div class="add-phone-container">
       <p id="text">מספרי הטלפון שלך</p>
@@ -46,14 +50,18 @@
 
 <div class="asset-contact-info-container">
   <app-wizard-summary
-    [number]="6"
+    [number]="wizardNumber"
     [text]="'פרטי התקשרות'"
     [state]="isComplete"
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
 
-  <div>
-    <form class="asset-contact-info-form" [formGroup]="assetContactInfoForm">
+  <div *ngIf="isActive">
+    <form
+      class="asset-contact-info-form"
+      [formGroup]="assetContactInfoForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="form-control">
         <label for="assetOwner">בעלות הנכס</label>
 
@@ -64,6 +72,7 @@
           readonly
           class="asset-owner"
           (click)="isOwnerSelectionOn = !isOwnerSelectionOn"
+          (blur)="isOwnerSelectionOn = false"
         />
 
         <ul *ngIf="isOwnerSelectionOn" class="list">
@@ -81,6 +90,14 @@
       <div class="form-control">
         <label for="contactName">השם שלך*</label>
         <input type="text" id="contactName" formControlName="contactName" />
+        <app-error-message
+          [error]="
+            assetContactInfoForm.get('contactName')?.invalid &&
+            assetContactInfoForm.get('contactName')?.touched
+              ? 'שדה חובה'
+              : null
+          "
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -94,6 +111,14 @@
           />
           <div class="plus">+</div>
         </div>
+        <app-error-message
+          [error]="
+            assetContactInfoForm.get('contactPhone')?.invalid &&
+            assetContactInfoForm.get('contactPhone')?.touched
+              ? 'שדה חובה'
+              : null
+          "
+        ></app-error-message>
       </div>
 
       <ng-container *ngIf="isAddContectOn">
@@ -104,6 +129,14 @@
             id="additionalContactName"
             formControlName="additionalContactName"
           />
+          <app-error-message
+            [error]="
+              assetContactInfoForm.get('additionalContactName')?.invalid &&
+              assetContactInfoForm.get('additionalContactName')?.touched
+                ? 'שדה חובה'
+                : null
+            "
+          ></app-error-message>
         </div>
 
         <div class="form-control">
@@ -117,6 +150,14 @@
             />
             <div class="plus">+</div>
           </div>
+          <app-error-message
+            [error]="
+              assetContactInfoForm.get('additionalContactPhone')?.invalid &&
+              assetContactInfoForm.get('additionalContactPhone')?.touched
+                ? 'שדה חובה'
+                : null
+            "
+          ></app-error-message>
         </div>
       </ng-container>
 
@@ -135,6 +176,16 @@
           <input type="checkbox" formControlName="hasReadTerms" />
           <p>רק לקרוא ולאשר את <span class>התקנון*</span></p>
         </div>
+        <div class="terms-error">
+          <app-error-message
+            [error]="
+              assetContactInfoForm.get('hasReadTerms')?.invalid &&
+              assetContactInfoForm.get('hasReadTerms')?.touched
+                ? 'שדה חובה'
+                : null
+            "
+          ></app-error-message>
+        </div>
         <div class="updates checkbox">
           <input type="checkbox" formControlName="willAcceptUpdates" />
           <p>
@@ -148,8 +199,14 @@
       <div class="advertising"></div>
 
       <div class="btn-container">
-        <button>חזרה</button>
-        <button class="next-stage-btn">המשך לשלב הבא</button>
+        <button (click)="returnToPrev()">חזרה</button>
+        <button
+          type="submit"
+          class="next-stage-btn"
+          (click)="this.assetContactInfoForm.markAllAsTouched()"
+        >
+          המשך לשלב הבא
+        </button>
       </div>
     </form>
   </div>

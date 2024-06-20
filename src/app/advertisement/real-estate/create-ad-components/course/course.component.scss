@@ -1,0 +1,114 @@
+@use "../../../../styles/mixin.scss" as *;
+@use "../../../../styles/variables.scss" as *;
+
+.course__container {
+  .course__subtitles {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .course__content {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    .card {
+      @include flex-center(column);
+      justify-content: space-evenly;
+      height: 500px;
+      width: 250px;
+      border: 1px solid gainsboro;
+      border-radius: 10px;
+
+      .course__price {
+        @include flex-center(column);
+        .price {
+          font-size: $text-xl;
+          color: $blackish;
+        }
+        .duration {
+          color: lightgray;
+        }
+      }
+    }
+    .course-btn {
+      border-radius: 30px;
+      background-color: $light-gray;
+      font-size: $text-m;
+      border: 1px solid lightgray;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      &:hover {
+        border: 1px solid gray;
+      }
+    }
+    .premium-btn {
+      background-color: mediumspringgreen;
+      transition: all 0.2s;
+      color: white;
+      font-weight: 700;
+      &:hover {
+        background-color: mediumseagreen;
+      }
+    }
+  }
+}
+
+.subtitle {
+  font-size: $text-s;
+}
+.subtitle-blue {
+  color: dodgerblue;
+  font-weight: 700;
+  font-size: $text-m;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid gainsboro;
+  margin: 1rem;
+  width: 90%;
+}
+
+.btn-container {
+  @include flex-between;
+  margin-block: 2rem;
+  button {
+    background-color: transparent;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    border: 1px solid gainsboro;
+    cursor: pointer;
+  }
+  .next-stage-btn {
+    border: 1px solid $orange;
+    color: $orange;
+  }
+}
+
+.by-the-way__msg {
+  margin-top: 1rem;
+  font-size: $text-s;
+}
+
+@media (max-width: $mobile) {
+  .course__container {
+    .course__content {
+      flex-direction: column;
+      width: 100%;
+      .card {
+        align-items: flex-start;
+        height: 400px;
+        width: 100%;
+        padding-right: 2rem;
+      }
+      button {
+        width: 90%;
+      }
+    }
+  }
+}
+
+.padding {
+  padding-inline: 2rem 1rem;
+}

@@ -1,12 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  AbstractControlOptions,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { payments } from '../../../../../utilities/const';
 import { Subscription } from 'rxjs';
+import { FormDataService } from '../../../../core/services/form-data.service';
+import { removeControlsWithEmptyString } from '../../../../helpers/ad-helpers';
 
 @Component({
   selector: 'app-asset-payments',
@@ -21,9 +25,13 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
   currentDate: string = new Date().toISOString().split('T')[0];
   isAnyCheckBoxsChecked: boolean = false;
   formSub!: Subscription;
-  constructor(private fb: FormBuilder) {}
+  stepSub!: Subscription;
+  isActive: boolean = false;
+  wizardNumber: number = 4;
+  constructor(private fb: FormBuilder, private formService: FormDataService) {}
   ngOnDestroy(): void {
     this.formSub.unsubscribe();
+    this.stepSub.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -71,13 +79,22 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
         isEntryDateFlexable: this.fb.control(false),
         isForLongTerm: this.fb.control(false),
       },
-      { validator: this.rentValidator }
+      { validators: this.rentValidator.bind(this) }
     );
+
+    this.stepSub = this.formService.step$.subscribe({
+      next: (currentStep) => {
+        this.isActive = currentStep == this.wizardNumber;
+        this.isComplete = currentStep > this.wizardNumber;
+      },
+    });
 
     this.formSub = this.assetPaymentsForm.valueChanges.subscribe((res) => {
       //parseFloint and parseInt return NaN if they try to parse and empty or non-numeric string
-      const TSMValue = parseInt(res['totalSquareMeter'].replaceAll(',', ''));
-      const RentValue = parseInt(res['rent'].replaceAll(',', ''));
+      // if (res == null) return;
+
+      const TSMValue = parseInt(res['totalSquareMeter']?.replaceAll(',', ''));
+      const RentValue = parseInt(res['rent']?.replaceAll(',', ''));
 
       if (
         !Number.isNaN(TSMValue) &&
@@ -113,7 +130,6 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
 
   dateValidator(control: AbstractControl): { invalidDate: string } | null {
     const dateControl = control.value;
-    const date = new Date(dateControl);
 
     if (this.assetPaymentsForm != null) {
       const IsEntryDateImmediate = this.assetPaymentsForm?.get(
@@ -128,7 +144,9 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
       }
     }
 
-    return date < new Date() ? { invalidDate: 'invalidDate' } : null;
+    return dateControl < this.currentDate
+      ? { invalidDate: 'invalidDate' }
+      : null;
   }
 
   FormatInput(event: Event, controlName: string) {
@@ -153,11 +171,12 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
   }
 
   formatNumber(value: string): string {
+    if (value == null) return value;
     if (value.includes('e')) value.replace('e', '');
     let indexOfDot = value.indexOf('.');
     if (value.length < 4 || (indexOfDot != -1 && indexOfDot < 4)) return value;
     //remove existing commas (',')
-    value = value.replaceAll(',', '');
+    value = value?.replaceAll(',', '');
     //function to add commas
     for (
       let i = indexOfDot > -1 ? indexOfDot - 3 : value.length - 3;
@@ -169,10 +188,27 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
     return value;
   }
 
-  rentValidator(parent: FormGroup): { invalidRent: 'invalidRent' } | null {
-    console.log(parent.controls['totalSquareMeter']?.value);
-    const TSMValue = parseFloat(parent.controls['totalSquareMeter']?.value);
-    const RentValue = parseFloat(parent.controls['rent']?.value);
+  globalLengthErrorMessage(controlName: string): string | null {
+    const control = this.assetPaymentsForm.get(controlName);
+    if (!control?.touched) return null;
+    if (control?.hasError('required')) return 'שדה חובה';
+    if (control?.hasError('minlength')) {
+      const minLength = control?.errors?.['minlength'].requiredLength;
+      return `(${minLength})ערך מתחת למותר`;
+    }
+    if (control?.hasError('maxlength')) {
+      const maxLength = control?.errors?.['maxlength'].requiredLength;
+      return `(${maxLength})ערך מעל למותר`;
+    }
+    return null;
+  }
+
+  rentValidator(
+    parent: AbstractControl
+  ): { invalidRent: 'invalidRent' } | null {
+    const group = parent as FormGroup;
+    const TSMValue = parseFloat(group.controls['totalSquareMeter']?.value);
+    const RentValue = parseFloat(group.controls['rent']?.value);
     if (!Number.isNaN(TSMValue) && !Number.isNaN(RentValue)) {
       console.log('חייב להיות גדול או שווה מהגודל המינימלי');
       return RentValue < TSMValue ? { invalidRent: 'invalidRent' } : null;
@@ -181,7 +217,9 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
   }
 
   setPaymentsInputValue(payments: string): void {
-    this.assetPaymentsForm.get('rentPayments')?.setValue(payments);
+    this.assetPaymentsForm
+      .get('rentPayments')
+      ?.setValue(payments, { emitEvent: false });
     this.isPaymentsSelectionOn = false;
   }
 
@@ -202,5 +240,16 @@ export class AssetPaymentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {}
+  returnToPrev() {
+    this.formService.setStep(this.wizardNumber - 1);
+  }
+
+  onSubmit() {
+    if (!this.assetPaymentsForm.invalid) {
+      console.log(this.assetPaymentsForm)
+      removeControlsWithEmptyString(this.assetPaymentsForm);
+      const payments = { paymentsAndDates: this.assetPaymentsForm.value };
+      this.formService.setWizardForm(payments);
+    }
+  }
 }

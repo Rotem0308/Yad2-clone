@@ -1,23 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../../../core/services/data.service';
 import {
   EMPTY,
   Observable,
+  Subscription,
   debounceTime,
   distinctUntilChanged,
   switchMap,
   tap,
 } from 'rxjs';
 import { assets, conditions } from '../../../../../utilities/const';
+import { FormDataService } from '../../../../core/services/form-data.service';
+import {
+  convertStringToNumber,
+  removeControlsWithEmptyString,
+} from '../../../../helpers/ad-helpers';
 
 @Component({
   selector: 'app-asset-address',
   templateUrl: './asset-address.component.html',
   styleUrl: './asset-address.component.scss',
 })
-export class AssetAddressComponent implements OnInit {
+export class AssetAddressComponent implements OnInit, OnDestroy {
   isComplete: boolean = false;
+  step$!: Observable<number>;
   assetAddressForm!: FormGroup;
   cities$!: Observable<any>;
   streets$!: Observable<any>;
@@ -29,14 +42,25 @@ export class AssetAddressComponent implements OnInit {
   conditions: string[] = conditions;
   area: string = '';
   neighborhood: string = '';
-  constructor(private fb: FormBuilder, private dataService: DataService) {}
-  //איתור מחוז לפי יישוב
+  wizardNumber: number = 2;
+  stepSub!: Subscription;
+  isActive: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private dataService: DataService,
+    private formService: FormDataService
+  ) {}
+
+  ngOnDestroy(): void {
+    this.stepSub.unsubscribe();
+  }
   ngOnInit(): void {
     this.assetAddressForm = this.fb.group({
       city: this.fb.control('', [Validators.required]),
       street: this.fb.control('', [Validators.required]),
       houseNumber: this.fb.control('', [Validators.required]),
-      apartmentNumber: this.fb.control(null),
+      apartmentNumber: this.fb.control(''),
       floor: this.fb.control('', [Validators.required]),
       totalFloors: this.fb.control('', [Validators.required]),
       isOnColums: this.fb.control(false),
@@ -50,7 +74,7 @@ export class AssetAddressComponent implements OnInit {
 
     this.cities$ =
       this.assetAddressForm.get('city')?.valueChanges.pipe(
-        debounceTime(1000),
+        debounceTime(700),
         distinctUntilChanged(),
         switchMap((searchValue) => {
           if (searchValue.length === 0 || !this.isCityInputFocus) return EMPTY;
@@ -61,7 +85,7 @@ export class AssetAddressComponent implements OnInit {
     this.streets$ =
       this.assetAddressForm.get('street')?.valueChanges.pipe(
         tap(() => console.log('streetValue')),
-        debounceTime(1000),
+        debounceTime(700),
         distinctUntilChanged(),
         switchMap((searchValue) => {
           const city = this.assetAddressForm.get('city')?.value;
@@ -85,6 +109,13 @@ export class AssetAddressComponent implements OnInit {
       } else {
         return;
       }
+    });
+
+    this.stepSub = this.formService.step$.subscribe({
+      next: (currentStep) => {
+        this.isActive = currentStep == this.wizardNumber;
+        this.isComplete = currentStep > this.wizardNumber;
+      },
     });
   }
 
@@ -113,13 +144,13 @@ export class AssetAddressComponent implements OnInit {
   // }
 
   setCityInputValue(event: Event) {
-    const selectedValue = (event.target as HTMLSelectElement).value;
+    const selectedValue = (event.target as HTMLSelectElement).value.trim();
     let cityInput = this.assetAddressForm.get('city');
     cityInput?.setValue(selectedValue);
     this.isCityInputFocus = false;
   }
   setStreetInputValue(event: Event) {
-    const selectedValue = (event.target as HTMLSelectElement).value;
+    const selectedValue = (event.target as HTMLSelectElement).value.trim();
     let streetInput = this.assetAddressForm.get('street');
     streetInput?.setValue(selectedValue);
     this.isStreetInputFocus = false;
@@ -135,5 +166,17 @@ export class AssetAddressComponent implements OnInit {
     this.isAssetStateSelectionOn = false;
   }
 
-  onSubmit() {}
+  returnToPrev() {
+    this.formService.setStep(this.wizardNumber - 1);
+  }
+
+  onSubmit() {
+    if (!this.assetAddressForm.invalid) {
+      convertStringToNumber(this.assetAddressForm);
+      removeControlsWithEmptyString(this.assetAddressForm);
+      console.log(this.assetAddressForm);
+      const formControlsValues = { address: this.assetAddressForm?.value };
+      this.formService.setWizardForm(formControlsValues);
+    }
+  }
 }

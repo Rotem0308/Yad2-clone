@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormDataService } from '../../../../core/services/form-data.service';
 
 @Component({
   selector: 'app-assets-type',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AssetsTypeComponent {
   isComplete: boolean = false;
+  constructor(private formService: FormDataService) {}
+
+  onClick() {
+    this.isComplete = true;
+    this.formService.setStep(2);
+  }
 }

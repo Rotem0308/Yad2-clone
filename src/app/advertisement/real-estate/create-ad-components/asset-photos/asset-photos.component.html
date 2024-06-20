@@ -1,12 +1,17 @@
 <div class="assets-videos-photos-container">
   <app-wizard-summary
-    [number]="5"
+    [number]="wizardNumber"
     [text]="'תמונות וסרטונים'"
     [state]="isComplete"
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
 
-  <form [formGroup]="assetphotosVideosForm" class="uploads-form">
+  <form
+    [formGroup]="assetphotosVideosForm"
+    class="uploads-form"
+    (ngSubmit)="onSubmit()"
+    *ngIf="isActive"
+  >
     <div class="header">
       ניתן להעלות עד 10 תמונות ע״י גרירה או לחיצה על כפתור הפלוס. אחרי הבחירה,
       בחרו את מרכז התמונה כדי שתופיע באתר בצורה המוקטנת הטובה ביותר.
@@ -93,7 +98,7 @@
           </ng-template>
           <input
             type="file"
-            formControlName="photos"
+            formControlName="inputPhotos"
             (change)="onFileUpload($event)"
             multiple
             accept="image/jpg,image/png"
@@ -103,8 +108,14 @@
     </div>
 
     <div class="btn-container">
-      <button>חזרה</button>
-      <button class="next-stage-btn">המשך לשלב הבא</button>
+      <button (click)="returnToPrev()">חזרה</button>
+      <button
+        type="submit"
+        [disabled]="this.assetphotosVideosForm.invalid"
+        class="next-stage-btn"
+      >
+        המשך לשלב הבא
+      </button>
     </div>
   </form>
 </div>

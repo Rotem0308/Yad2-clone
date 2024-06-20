@@ -11,7 +11,7 @@ export class DataService {
 
   getCityByValue(searchValue: string, limit: number): Observable<any> {
     return this.http.get(
-      `${environment.API_URL}/GetCities/${searchValue}?limit=${limit}`
+      `${environment.API_URL}/GetCities/${searchValue}?limit=${50}`
     );
   }
 
@@ -20,12 +20,12 @@ export class DataService {
     searchValue: string,
     limit: number
   ): Observable<any> {
-    console.log('suzana1');
     if (city.length <= 0) return EMPTY;
-    console.log('suzana2');
-    console.log(city);
+
     return this.http.get(
-      `${environment.API_URL}/GetStreets/${searchValue}?limit=${limit}&city=${city}`
+      `${
+        environment.API_URL
+      }/GetStreets/${searchValue}?limit=${50}&city=${city}`
     );
   }
 }

@@ -1,15 +1,91 @@
 <div class="course__container">
   <app-wizard-summary
-    [number]="7"
+    [number]="wizardNumber"
     [text]="'בחירת מסלול'"
     [state]="isComplete"
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
 
-  <div class="course__content">
-    <div>
-      <p class="">הידד! המודעה שלך מוכנה, זה הזמן לבחור מסלול פרסום.</p>
-      <p>חדש! למודעות צהובות, חודש ראשון חינם לשירות</p>
+  <div *ngIf="isActive" class="padding">
+    <div class="course__subtitles">
+      <p class="subtitle">הידד! המודעה שלך מוכנה, זה הזמן לבחור מסלול פרסום.</p>
+      <p class="subtitle-blue">חדש! למודעות צהובות, חודש ראשון חינם לשירות</p>
+      <hr />
+      <p class="subtitle">
+        באיזה מסלול לפרסם את המודעה? זה הרגע לבלוט מעל כולם
+      </p>
+    </div>
+
+    <form class="course__content" (ngSubmit)="onSubmit()">
+      <div class="card">
+        <app-like></app-like>
+        <h2>בסיסית</h2>
+        <hr />
+        <ng-container [ngTemplateOutlet]="normalCourse"></ng-container>
+        <button type="submit" class="course-btn">בחירת מסלול</button>
+      </div>
+      <div class="card">
+        <app-like></app-like>
+        <h2>פרמיום</h2>
+        <hr />
+        <ng-container [ngTemplateOutlet]="premiumCourse"></ng-container>
+        <button type="submit" class="course-btn premium-btn">
+          בחירת מסלול
+        </button>
+      </div>
+      <div class="card">
+        <app-like></app-like>
+        <h2>משודרגת</h2>
+        <hr />
+        <ng-container [ngTemplateOutlet]="upgradedCourse"></ng-container>
+        <button type="submit" class="course-btn">בחירת מסלול</button>
+      </div>
+    </form>
+
+    <p class="by-the-way__msg">
+      *חשוב לנו לעדכן! אנחנו מחדשים את נראות האתר וזה קורה בהדרגה. במידה ותבחר
+      את אחד המסלולים המשודרגים ייתכן ותראה את המראה הישן של המודעות המשודרגות
+      (מודעה צהובה או ורודה וללא תגיות)
+    </p>
+
+    <div class="btn-container">
+      <button (click)="returnToPrev()">חזרה</button>
     </div>
   </div>
 </div>
+
+<ng-template #normalCourse>
+  <div>
+    <p>מיקום בסיסי: איפה שכולם</p>
+    <p>הקפצה ידנית כל 4 שעות</p>
+    <p>ללא תגיות AI</p>
+  </div>
+  <div class="course__price">
+    <p class="price">לא משודרגת</p>
+    <p class="duration">ללא תשלום</p>
+  </div>
+</ng-template>
+
+<ng-template #premiumCourse>
+  <div>
+    <p>מיקום בסיסי: איפה שכולם</p>
+    <p>הקפצה ידנית כל 4 שעות</p>
+    <p>ללא תגיות AI</p>
+  </div>
+  <div class="course__price">
+    <p class="price">₪169</p>
+    <p class="duration">28 ימים</p>
+  </div>
+</ng-template>
+
+<ng-template #upgradedCourse>
+  <div>
+    <p>מיקום בסיסי: איפה שכולם</p>
+    <p>הקפצה ידנית כל 4 שעות</p>
+    <p>ללא תגיות AI</p>
+  </div>
+  <div class="course__price">
+    <p class="price">₪139</p>
+    <p class="duration">28 ימים</p>
+  </div>
+</ng-template>

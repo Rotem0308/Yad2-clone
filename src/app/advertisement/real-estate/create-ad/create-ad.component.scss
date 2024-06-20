@@ -160,19 +160,27 @@
 }
 
 .wizard-container {
-  width: 65%;
+  width: 80%;
+  height: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   margin-top: 3rem;
+  overflow-y: auto; /* Ensure it's scrollable */
+  scroll-behavior: smooth; /* Smooth scroll behavior */
   @media (max-width: $mobile) {
     width: 100%;
   }
 }
 
 .form-box {
-  background-color: white;
+  background-color: transparent;
   border-radius: 10px;
   border: 1px solid gainsboro;
-  margin-block: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.white{
+  background-color: white;
 }

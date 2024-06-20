@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../../../core/services/data.service';
 import { numberOfRooms } from '../../../../../utilities/const';
+import { FormDataService } from '../../../../core/services/form-data.service';
+import { Subscription } from 'rxjs';
+import { convertStringToNumber } from '../../../../helpers/ad-helpers';
 
 @Component({
   selector: 'app-asset-features',
@@ -9,9 +12,9 @@ import { numberOfRooms } from '../../../../../utilities/const';
   styleUrl: './asset-features.component.scss',
 })
 export class AssetFeaturesComponent {
+  isComplete: boolean = false;
   textareaPlaceHolder: string =
     "זה המקום לתאר את הפרטים הבולטים, למשל, האם נערך שיפוץ במבנה, מה שופץ, כיווני אוויר, האווירה ברחוב וכו'";
-  isComplete!: boolean;
   progressState: number = 0;
   assetFeaturesForm!: FormGroup;
   isRoomNumberSelectionOn: boolean = false;
@@ -19,7 +22,10 @@ export class AssetFeaturesComponent {
   activeFeaturesIndexes: number[] = [];
   viewFeatures: string[] = ['גישה לנכים', 'מזגן', 'סורגים', 'בוילר'];
   formFeatures: string[] = [''];
-  constructor(private fb: FormBuilder, private dataService: DataService) {}
+  stepSub!: Subscription;
+  wizardNumber: number = 3;
+  isActive: boolean = false;
+  constructor(private fb: FormBuilder, private formService: FormDataService) {}
 
   ngOnInit(): void {
     this.assetFeaturesForm = this.fb.group({
@@ -50,14 +56,19 @@ export class AssetFeaturesComponent {
       ]),
     });
 
-    
+    // this.assetFeaturesForm
+    //   ?.get('features')
+    //   ?.get('HasAccessForDisabled')
+    //   ?.valueChanges.subscribe((res) => {
+    //     console.log(res);
+    //   });
 
-    this.assetFeaturesForm
-      ?.get('features')
-      ?.get('HasAccessForDisabled')
-      ?.valueChanges.subscribe((res) => {
-        console.log(res);
-      });
+    this.stepSub = this.formService.step$.subscribe({
+      next: (currentStep) => {
+        this.isActive = currentStep == this.wizardNumber;
+        this.isComplete = currentStep > this.wizardNumber;
+      },
+    });
   }
 
   setRoomNumberInputValue(NumberOfRooms: number) {
@@ -103,5 +114,15 @@ export class AssetFeaturesComponent {
     return '0%';
   }
 
-  onSubmit() {}
+  returnToPrev() {
+    this.formService.setStep(this.wizardNumber - 1);
+  }
+
+  onSubmit() {
+    if (!this.assetFeaturesForm.invalid) {
+      convertStringToNumber(this.assetFeaturesForm);
+      const features = { features: this.assetFeaturesForm.value };
+      this.formService.setWizardForm(features);
+    }
+  }
 }

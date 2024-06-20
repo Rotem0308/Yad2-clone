@@ -1,12 +1,12 @@
 <div class="asset-address-container">
   <app-wizard-summary
-    [number]="2"
+    [number]="wizardNumber"
     [text]="'כתובת הנכס'"
     [state]="isComplete"
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
 
-  <div>
+  <div *ngIf="isActive">
     <form
       class="asset-address-form"
       [formGroup]="assetAddressForm"
@@ -28,7 +28,7 @@
             *ngIf="cities.result.records.length > 0 && isCityInputFocus"
             (change)="setCityInputValue($event)"
           >
-            <option value="">תבחר את העיר שלך</option>
+            <option value="" disabled selected>תבחר את העיר שלך</option>
 
             <option
               [value]="city['שם_ישוב']"
@@ -38,6 +38,14 @@
             </option>
           </select>
         </div>
+        <app-error-message
+          [error]="
+            assetAddressForm.get('city')?.invalid &&
+            assetAddressForm.get('city')?.touched
+              ? 'חייב להכניס שם עיר'
+              : null
+          "
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -54,7 +62,7 @@
             *ngIf="streets.result.records.length > 0 && isStreetInputFocus"
             (change)="setStreetInputValue($event)"
           >
-            <option value="">תבחר את הרחוב שלך</option>
+            <option value="" disabled selected>תבחר את הרחוב שלך</option>
 
             <option
               [value]="street['שם_רחוב']"
@@ -64,22 +72,39 @@
             </option>
           </select>
         </div>
+        <app-error-message
+          [error]="
+            assetAddressForm.get('street')?.invalid &&
+            assetAddressForm.get('street')?.touched
+              ? 'חייב להכניס שם רחוב'
+              : null
+          "
+        ></app-error-message>
       </div>
 
       <div class="flex-row">
         <div class="form-control">
           <label for="houseNumber">מס' בית*</label>
           <input
-            type="text"
+            type="number"
             placeholder="מספר בית"
             id="houseNumber"
             formControlName="houseNumber"
           />
+          <app-error-message
+            [error]="
+              assetAddressForm.get('houseNumber')?.invalid &&
+              assetAddressForm.get('houseNumber')?.touched
+                ? 'חייב להכניס מספר בית'
+                : null
+            "
+          ></app-error-message>
         </div>
+
         <div class="form-control">
           <label for="apartmentNumber">מס' דירה</label>
           <input
-            type="text"
+            type="number"
             placeholder="מספר דירה"
             id="apartmentNumber"
             formControlName="apartmentNumber"
@@ -96,6 +121,14 @@
             id="floor"
             formControlName="floor"
           />
+          <app-error-message
+            [error]="
+              assetAddressForm.get('floor')?.invalid &&
+              assetAddressForm.get('floor')?.touched
+                ? 'חייב להכניס מספר קומה'
+                : null
+            "
+          ></app-error-message>
         </div>
         <div class="form-control">
           <label for="totalFloors">סה״כ קומות בבניין*</label>
@@ -105,6 +138,14 @@
             id="totalFloors"
             formControlName="totalFloors"
           />
+          <app-error-message
+            [error]="
+              assetAddressForm.get('totalFloors')?.invalid &&
+              assetAddressForm.get('totalFloors')?.touched
+                ? 'חייב להכניס מספר קומות'
+                : null
+            "
+          ></app-error-message>
         </div>
         <div class="flex-center">
           <input type="checkbox" id="isOnColums" formControlName="isOnColums" />
@@ -137,9 +178,14 @@
           readonly
           class="asset-type"
           (click)="isAssetTypeSelectionOn = !isAssetTypeSelectionOn"
+          (blur)="isAssetTypeSelectionOn = false"
         />
 
-        <ul *ngIf="isAssetTypeSelectionOn" class="list">
+        <ul
+          *ngIf="isAssetTypeSelectionOn"
+          class="list"
+          (mousedown)="$event.preventDefault()"
+        >
           <li
             (click)="setAssetTypeInputValue(assetType)"
             *ngFor="let assetType of assets; let index = index"
@@ -149,6 +195,14 @@
             </div>
           </li>
         </ul>
+        <app-error-message
+          [error]="
+            assetAddressForm.get('assetType')?.invalid &&
+            assetAddressForm.get('assetType')?.touched
+              ? 'חייב להכניס סוג נכס'
+              : null
+          "
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -162,9 +216,14 @@
           readonly
           class="asset-type"
           (click)="isAssetStateSelectionOn = !isAssetStateSelectionOn"
+          (blur)="isAssetStateSelectionOn = false"
         />
 
-        <ul *ngIf="isAssetStateSelectionOn" class="list">
+        <ul
+          *ngIf="isAssetStateSelectionOn"
+          class="list"
+          (mousedown)="$event.preventDefault()"
+        >
           <li
             (click)="setAssetStateInputValue(assetState)"
             *ngFor="let assetState of conditions; let index = index"
@@ -174,6 +233,14 @@
             </div>
           </li>
         </ul>
+        <app-error-message
+          [error]="
+            assetAddressForm.get('assetState')?.invalid &&
+            assetAddressForm.get('assetState')?.touched
+              ? 'חייב להכניס מצב נכס'
+              : null
+          "
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -206,8 +273,14 @@
       <div class="commercial"></div>
 
       <div class="btn-container">
-        <button>חזרה</button>
-        <button class="next-stage-btn">המשך לשלב הבא</button>
+        <button (click)="returnToPrev()">חזרה</button>
+        <button
+          type="submit"
+          class="next-stage-btn"
+          (click)="this.assetAddressForm.markAllAsTouched()"
+        >
+          המשך לשלב הבא
+        </button>
       </div>
       <!-- <button (click)="setvalid()">form valid</button> -->
     </form>

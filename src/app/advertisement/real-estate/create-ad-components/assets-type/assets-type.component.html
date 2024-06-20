@@ -9,7 +9,7 @@
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
   <div class="assets-selections" *ngIf="!isComplete">
-    <div class="asset-option" (click)="isComplete = !isComplete">
+    <div class="asset-option" (click)="onClick()">
       <img src="assets/house-active.svg" alt="house-for-sell" />
       <p class="text">השכרה</p>
     </div>

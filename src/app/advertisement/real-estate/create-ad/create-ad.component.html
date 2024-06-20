@@ -7,7 +7,7 @@
     <div class="nav-links-container">
       <div class="user-link box">
         <p class="user-icon">
-          {{ user ? user.firstName : "ra" }}
+          {{ user?.firstName | slice : 0 : 2 }}
         </p>
         <div class="user-options">
           <p class="">עריכת פרופיל</p>
@@ -45,13 +45,28 @@
     </div>
   </div>
 
-  <div class="wizard-container">
-    <app-assets-type class="form-box"></app-assets-type>
-    <app-asset-address class="form-box"></app-asset-address>
-    <app-asset-features class="form-box"></app-asset-features>
-    <app-asset-payments class="form-box"></app-asset-payments>
-    <app-asset-photos class="form-box"></app-asset-photos>
-    <app-asset-contact-info class="form-box"></app-asset-contact-info>
-    <app-course class="form-box"></app-course>
+  <div class="wizard-container" #wizardContainer *ngIf="step$ | async as step">
+    <app-assets-type
+      [ngClass]="{
+        'form-box': true,
+        white: step >= 1
+      }"
+    ></app-assets-type>
+    <app-asset-address
+      [ngClass]="{ 'form-box': true, white: step >= 2 }"
+    ></app-asset-address>
+    <app-asset-features
+      [ngClass]="{ 'form-box': true, white: step >= 3 }"
+    ></app-asset-features>
+    <app-asset-payments
+      [ngClass]="{ 'form-box': true, white: step >= 4 }"
+    ></app-asset-payments>
+    <app-asset-photos
+      [ngClass]="{ 'form-box': true, white: step >= 5 }"
+    ></app-asset-photos>
+    <app-asset-contact-info
+      [ngClass]="{ 'form-box': true, white: step >= 6 }"
+    ></app-asset-contact-info>
+    <app-course [ngClass]="{ 'form-box': true, white: step >= 7 }"></app-course>
   </div>
 </div>

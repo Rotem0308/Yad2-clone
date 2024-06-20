@@ -1,12 +1,12 @@
 <div class="asset-features-container">
   <app-wizard-summary
-    [number]="3"
+    [number]="wizardNumber"
     [text]="'על הנכס'"
     [state]="isComplete"
     (onEditClick)="isComplete = !isComplete"
   ></app-wizard-summary>
 
-  <div>
+  <div *ngIf="isActive">
     <form
       class="asset-features-form"
       [formGroup]="assetFeaturesForm"
@@ -22,6 +22,7 @@
           readonly
           class="number-of-rooms"
           (click)="isRoomNumberSelectionOn = !isRoomNumberSelectionOn"
+          (blur)="isRoomNumberSelectionOn = false"
         />
 
         <ul *ngIf="isRoomNumberSelectionOn" class="list">
@@ -34,6 +35,14 @@
             </div>
           </li>
         </ul>
+        <app-error-message
+          [error]="
+            assetFeaturesForm.get('rooms')?.invalid &&
+            assetFeaturesForm.get('rooms')?.touched
+              ? 'חייב להכניס מספר חדרים '
+              : null
+          "
+        ></app-error-message>
       </div>
 
       <div class="form-control">
@@ -126,6 +135,14 @@
             [placeholder]="textareaPlaceHolder"
             #desc
           ></textarea>
+          <app-error-message
+            [error]="
+              assetFeaturesForm.get('description')?.invalid &&
+              assetFeaturesForm.get('description')?.touched
+                ? 'חייב להכניס תיאור '
+                : null
+            "
+          ></app-error-message>
         </div>
         <p class="note">
           אין צורך להוסיף מספר טלפון כחלק מהתיאור, בהמשך התהליך יש אזור מסודר
@@ -134,8 +151,14 @@
       </div>
 
       <div class="btn-container">
-        <button>חזרה</button>
-        <button class="next-stage-btn">המשך לשלב הבא</button>
+        <button (click)="returnToPrev()">חזרה</button>
+        <button
+          type="submit"
+          class="next-stage-btn"
+          (click)="this.assetFeaturesForm.markAllAsTouched()"
+        >
+          המשך לשלב הבא
+        </button>
       </div>
     </form>
   </div>
